@@ -13,6 +13,7 @@
   <msg key="categories">Categories</msg>
   <msg key="categorize">Categorize</msg>
   <msg key="categorized">Categorized Courses</msg>
+  <msg key="category">Category</msg>
   <msg key="class">Class</msg>
   <msg key="class_name">Class Name</msg>
   <msg key="com_name">Community Name:</msg>
@@ -20,7 +21,7 @@
   <msg key="confirm_delete">Confirm Delete Of </msg>
   <msg key="course_admin">Course Administration</msg>
   <msg key="course_catalog">DotLRN Catalog Index</msg>
-  <msg key="course_info">Course Info:</msg>
+  <msg key="course_info">Description:</msg>
   <msg key="course_key">Course Key:</msg>
   <msg key="course_list">Your Course List</msg>
   <msg key="course_name">Course Name:</msg>
@@ -48,6 +49,7 @@
   <msg key="grantrevoke">Grant/Revoke</msg>
   <msg key="has_no">and has &lt;b&gt;No&lt;/b&gt; associations to dotLRN class or community</msg>
   <msg key="has_one">has one association to dotLRN class or community</msg>
+  <msg key="info">Course Information</msg>
   <msg key="is_assoc">is associated to:</msg>
   <msg key="label_title">Check/uncheck all rows</msg>
   <msg key="make_live">Make This Course Live</msg>
@@ -78,6 +80,7 @@
   <msg key="title">Check/uncheck this row, and select an action to perform below</msg>
   <msg key="to">To</msg>
   <msg key="to_dotlrn">associations to dotLRN classes or communities</msg>
+  <msg key="uncat">Uncategorized</msg>
   <msg key="uncategorized">Uncategorized Courses</msg>
   <msg key="user_name">User Name:</msg>
   <msg key="users_to_grant">users to grant permissions that match that search</msg>

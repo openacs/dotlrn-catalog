@@ -1,4 +1,5 @@
 <table>
+<h3>#dotlrn-catalog.info#:</h3>
 <tr>
    <td>
    <if @edit@ eq yes>
@@ -20,11 +21,9 @@
     <td><b>#dotlrn-catalog.course_name#</b></td><td>@name@</td>
 </tr>
 <tr><td></td>
-    <td><b>#dotlrn-catalog.course_info#</b></td><td>@info@</td>
+    <td><b>#dotlrn-catalog.course_info#</b></td><td>@info;noquote@</td>
 </tr>
-<tr><td></td>
-    <td><b>#dotlrn-catalog.asm#:</b></td><td>@asm@</td>
-</tr>
+<if @revision@ eq yes>
 <tr><td></td>
     <td>
 	<b>#dotlrn-catalog.dotlrn#:</b>
@@ -47,6 +46,12 @@
 	</else>
     </td>
 </tr>
+</if>
+<if @asm@ not eq #dotlrn-catalog.not_associated#>
+    <tr><td></td>
+        <td><b>#dotlrn-catalog.asm#:</b></td><td>@asm@</td>
+    </tr>
+</if>
 <if @category_p@ eq "1">
     <if @index@ not eq "yes">
         <tr><td></td>
@@ -88,4 +93,17 @@
    </else>
 </tr>
 </table>
+
 <br>
+<if @revision@ not eq yes>
+<h3>#dotlrn-catalog.dotlrn_assoc#:</h3>
+<multiple name="relations">
+    <if @relations.type@ eq "dotlrn_catalog_class_rel">
+    	<include src="/packages/dotlrn-catalog/lib/dotlrn-chunk" class_id=@relations.object_id@>
+    </if>
+    <else>
+    	<include src="/packages/dotlrn-catalog/lib/community-chunk" community_id=@relations.object_id@>
+    </else>
+</multiple>
+</if>
+

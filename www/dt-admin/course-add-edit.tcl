@@ -24,15 +24,14 @@ set cc_package_id [apm_package_id_from_key "dotlrn-catalog"]
 # Check for create permissions over dotlrn-catalog package
 permission::require_permission -party_id $user_id -object_id $cc_package_id -privilege "create"
 
-if { [info exists mode] } {
-    # Check if users has admin permission to edit the course
-    permission::require_permission -object_id $course_id -privilege "create"
-    # To disable the element course_key
-    set mode display
+if { [info exist mode] } {
+    if { [string equal $mode 1] } {
+	permission::require_permission -object_id $course_id -privilege "create"
+    } 
+    set mode_p display
 } else {
-    set mode edit
+    set mode_p edit
 }
-
 
 # Get assessments
 set asm_package_id [apm_package_id_from_key assessment]
@@ -49,7 +48,6 @@ set elements ""
 
 
 # Creates the elements to show with ad_form
-
 foreach attribute $attribute_list {
     set element_mode ""
     set aditional_type ""
@@ -57,13 +55,13 @@ foreach attribute $attribute_list {
     switch [lindex $attribute 4] {
 	string {
 	    if { [string equal [lindex $attribute 2] "assessment_id"]} {
-		set aditional_type "(select)"
-		set aditional_elements [list options $asm_list]
-	    } else {
-		if { [string equal [lindex $attribute 2] "course_key"]} {
-		    set element_mode [list mode edit]
-		} 
-	    }
+                set aditional_type "(select)"
+                set aditional_elements [list options $asm_list]
+            } else {
+                if { [string equal [lindex $attribute 2] "course_key"]} {
+                    set element_mode [list mode $mode_p]
+                }
+            }
 	}
 	text {
 	    set aditional_type "(textarea)"
@@ -77,14 +75,11 @@ foreach attribute $attribute_list {
 	}
     }
     set element [list [lindex $attribute 2]:text${aditional_type} [list label [lindex $attribute 3]] $aditional_elements $element_mode]
-
     lappend elements $element
-
 }
 
-
 # Create the form
-ad_form -name add_course -export {return_url $return_url } -form {
+ad_form -name add_course -export {return_url $return_url mode $mode} -form {
     course_id:key
 }
 
@@ -99,25 +94,21 @@ ad_form -extend -name add_course -form {
     }
 }
 
-ad_form -extend -name add_course -validate {
-    { course_key
-	{ [dotlrn_catalog::check_name -name $course_key] }
-	"[_ dotlrn-catalog.name_already]"
-    }
-} -new_data {
+ad_form -extend -name add_course -new_data {
     # New item and revision in the CR
     set folder_id [dotlrn_catalog::get_folder_id]
     set attribute_list [package_object_attribute_list -start_with dotlrn_catalog dotlrn_catalog]
     set form_attributes [list]
+
     foreach attribute $attribute_list {
 	set attr_name [lindex $attribute 2]
 	lappend form_attributes [list $attr_name [set $attr_name]]
     }
-
-    set item_id [content::item::new -name $course_key -parent_id $folder_id \
-		     -content_type "dotlrn_catalog" -creation_user $user_id \
-		     -attributes $form_attributes -is_live t]
-
+    if { [catch { set item_id [content::item::new -name $course_key -parent_id $folder_id \
+				   -content_type "dotlrn_catalog" -creation_user $user_id \
+				   -attributes $form_attributes -is_live t] } errmsg] } {
+	ad_return_complaint 1 "\#dotlrn-catalog.name_already\#"
+    } 
     # Grant admin privileges to the user over the item in the CR
     permission::grant -party_id $user_id -object_id $item_id  -privilege "admin"
     

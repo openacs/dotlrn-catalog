@@ -13,4 +13,11 @@
         </querytext>
     </fullquery>
 
+    <fullquery name="relation">
+        <querytext>
+            select object_id_two as object_id, rel_type as type from acs_rels
+	    where object_id_one = :course_id order by type
+        </querytext>
+    </fullquery>
+
 </queryset>
