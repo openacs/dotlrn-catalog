@@ -19,11 +19,5 @@ if { [string equal $return_url "index"] } {
 set page_title "[_ dotlrn-catalog.watch_assoc]"
 set user_id [ad_conn user_id]
 
-# Allows that an unregiser user watch this page
-if { ![string equal $user_id "0"] } {
-    # Check if users has admin permission to edit dotlrn_catalog
-    permission::require_permission -party_id $user_id -object_id $course_id -privilege "admin"
-}
-
 db_multirow relations relation { }
 
