@@ -33,7 +33,7 @@
 
 <fullquery name="dotlrn_catalog::check_name.check_item_name">      
       <querytext>
-	    select course_id from dotlrn_catalog where course_key = :name
+	    select item_id from cr_items where name = :name
       </querytext>
 </fullquery>
 

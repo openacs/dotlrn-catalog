@@ -7,11 +7,23 @@ ad_page_contract {
     course_id:notnull
     course_key:notnull
     course_name:notnull
+    { index "" }
+    { return_url "" }
 }
-set page_title "$course_key [_ dotlrn-catalog.course_info]"
-set context [list "[_ dotlrn-catalog.one_course_info]"]
 
-set return_url "index"
+if { [string equal $index ""] } {
+    set context [list [list "course-list" "[_ dotlrn-catalog.course_list]"] "[_ dotlrn-catalog.one_course_info]"]
+} else {
+    set context [list [list "../course-info?course_id=$course_id&course_name=$course_name&course_key=$course_key" "[_ dotlrn-catalog.one_course_info]"] "$course_name [_ dotlrn-catalog.course_info]"]
+    set return_url "${return_url}&index=yes"
+}
+
+# Check permission over course_id
+permission::require_permission -object_id $course_id -privilege "admin"
+
+set page_title "$course_key [_ dotlrn-catalog.course_info]"
+
+
 set asm_package_id [apm_package_id_from_key assessment]
 
 db_1row get_course_info { } 

@@ -5,6 +5,7 @@ ad_page_contract {
     @creation-date   28-01-2005
 } {
     page:optional
+    keyword:optional
 }
 
 set user_id [ad_conn user_id]
@@ -34,11 +35,21 @@ if { [string equal [lindex [lindex $tree_list 0] 1] "dotlrn-course-catalog"] } {
 set asm_package_id [apm_package_id_from_key assessment]
 
 if { [acs_user::site_wide_admin_p] } {
-    set query get_course_info_site_wide
-    set paginator_query site_wide_paginator
+    if { [info exist keyword] } {
+	set query get_course_info_site_wide_keyword
+	set paginator_query site_wide_paginator_keyword
+    } else {
+	set query get_course_info_site_wide
+	set paginator_query site_wide_paginator
+    }
 } else {
-    set query get_course_info
-    set paginator_query paginator
+    if { [info exist keyword] } {
+	set query get_course_info_keyword
+	set paginator_query site_wide_paginator_keyword
+    } else {
+	set query get_course_info
+	set paginator_query paginator
+    }
 }
 
 template::list::create \
@@ -56,16 +67,20 @@ template::list::create \
 	key {
 	    label "[_ dotlrn-catalog.course_key]"
 	    display_template {
+		<div align=left>
 		<a href=course-add-edit?course_id=@course_list.course_id@&return_url=$return_url&mode=1 \
 		    title="[_ dotlrn-catalog.new_ver]">\
 		        <img border=0 src=/resources/Edit16.gif></a>
 		<a href="revision-list?course_key=@course_list.course_key@&return_url=$return_url&course_id=@course_list.course_id@" title="[_ dotlrn-catalog.see_all_rev]">@course_list.course_key@</a>
+		</div>
 	    }
 	}
 	name  {
 	    label "[_ dotlrn-catalog.course_name]"
 	    display_template {
+		<div align=left>
 		<a href="course-info?course_id=@course_list.course_id@&course_name=@course_list.course_name@&course_key=@course_list.course_key@">@course_list.course_name@</a>
+		</div>
 	    }
 	}
 	assessment_id  {

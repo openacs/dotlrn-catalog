@@ -1,11 +1,17 @@
 <table>
+<if @index@ eq "yes">
+   <if @admin_p@ eq 1>
+   <div align=right>
+        <a href="dt-admin/course-info?course_id=@course_id@&course_name=@name@&course_key=@course_key@&index=yes" title="#dotlrn-catalog.admin_this#"><img border=0 src=images/admin.gif></a> 
+   </div>
+   </if>
+</if>
 <h3>#dotlrn-catalog.info#:</h3>
 <tr>
    <td>
    <if @edit@ eq yes>
    <div align="right">
-	<a href=course-add-edit?course_id=@course_id@&return_url=@return_url@&mode=edit \
-	title="#dotlrn-catalog.new_ver#"><img border=0 src=/resources/Edit16.gif></a>
+	<a href=course-add-edit?course_id=@course_id@&return_url=course-info&mode=1&index=@to_index@ title="#dotlrn-catalog.new_ver#"><img border=0 src=/resources/Edit16.gif></a>
    </div>
    </if>
    </td>
@@ -96,7 +102,9 @@
 
 <br>
 <if @revision@ not eq yes>
-<h3>#dotlrn-catalog.dotlrn_assoc#:</h3>
+<if @obj_n@ not eq "0">
+   <h3>#dotlrn-catalog.dotlrn_assoc#:</h3>
+</if>
 <multiple name="relations">
     <if @relations.type@ eq "dotlrn_catalog_class_rel">
     	<include src="/packages/dotlrn-catalog/lib/dotlrn-chunk" class_id=@relations.object_id@>

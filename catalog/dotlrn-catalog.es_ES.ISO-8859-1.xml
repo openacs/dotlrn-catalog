@@ -2,7 +2,9 @@
 <message_catalog package_key="dotlrn-catalog" package_version="0.1a4" locale="es_ES" charset="ISO-8859-1">
 
   <msg key="add_course_to">Agregar este curso a una categoria.</msg>
+  <msg key="admin">Administrador</msg>
   <msg key="admin_categories">Administrar Arbol de Categorias</msg>
+  <msg key="admin_this">Administrar Este Courso</msg>
   <msg key="and_has">y tiene</msg>
   <msg key="asm">Assessment</msg>
   <msg key="associate">Asociar</msg>
@@ -22,11 +24,12 @@
   <msg key="course_admin">Administracion de Cursos</msg>
   <msg key="course_catalog">Indice del Catalogo dotLRN</msg>
   <msg key="course_details">Detalles del Curso</msg>
-  <msg key="course_info">Informacion del Curso:</msg>
+  <msg key="course_info">Descripcion:</msg>
   <msg key="course_key">Llave del Curso:</msg>
   <msg key="course_list">Su listado de Cursos</msg>
   <msg key="course_name">Nombre del Curso:</msg>
-  <msg key="courses">Corsos</msg>
+  <msg key="courses">Cursos</msg>
+  <msg key="create">Creacion</msg>
   <msg key="create_new_ver">Crear una nueva version de</msg>
   <msg key="delete">Borrar</msg>
   <msg key="delete_course">Borrar Cursos</msg>
@@ -64,11 +67,15 @@
   <msg key="not_associate">No Asociar</msg>
   <msg key="not_associated">No Asociado</msg>
   <msg key="one_course_info">Informacion de un Curso</msg>
-  <msg key="permission">Permisos:</msg>
+  <msg key="please_type">Ingrese una palabra</msg>
+  <msg key="privilege_on">Privilegio sobre</msg>
+  <msg key="privilege_on_catalog">Privilegio sobre dotLRN-Catalog:</msg>
   <msg key="rev_list">Listado de Revisiones</msg>
   <msg key="revisions">Revisiones</msg>
   <msg key="revoke">Remover</msg>
   <msg key="revoke_per">Remover Permisos</msg>
+  <msg key="search">Buscar</msg>
+  <msg key="search_courses">Buscar nombre del curso que contiene :</msg>
   <msg key="search_email_help">buscar por direccion de correo electronico o parte de ella</msg>
   <msg key="search_help">buscar por nombre o apellido.</msg>
   <msg key="search_u">Busqueda de Usuarios</msg>

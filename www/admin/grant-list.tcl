@@ -83,14 +83,16 @@ template::list::create \
 	    }
 	}
 	permission {
-	    label "[_ dotlrn-catalog.permission]"
+	    label "[_ dotlrn-catalog.privilege_on_catalog]"
 	    display_template {
+		<div align=center>
 		<if @grant_list.privilege@ eq 1>
-		   [_ dotlrn-catalog.granted]
+		   [_ dotlrn-catalog.create]
 		</if>
 		<else>
 		   <i>[_ dotlrn-catalog.not_allowed]</i>
 		</else>
+		</div>
 	    }
 	}
     }

@@ -47,7 +47,7 @@ ad_proc -private dotlrn_catalog::set_live {
 ad_proc -private dotlrn_catalog::check_name {
     -name:required
 } {
-    Checks if @name@ already exists in dotlrn_catalog table
+    Checks if @name@ already exists in cr_item table
     @name@        The name of the course_key
 } {
     if { [string equal [db_string check_item_name { } -default -1] "-1"] } {

@@ -10,6 +10,8 @@ ad_page_contract {
     { course_name "" }
 }
 
+permission::require_permission -object_id $course_id -privilege "admin"
+
 if { [string equal $return_url "index"] } {
     set context [list [list ../course-info?course_id=$course_id&course_key=$course_key&course_name=$course_name  "[_ dotlrn-catalog.one_course_info]"] "[_ dotlrn-catalog.course_details]"]
 } else {

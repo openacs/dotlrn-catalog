@@ -9,10 +9,13 @@ ad_page_contract {
     course_id:optional
     mode:optional
     { return_url "" }
+    { index "" }
 }
 
-if { [string equal $return_url ""]} {
+if { [string equal $return_url ""] } {
     set return_url "course-list"
+} else { 
+    set return_url $return_url 
 }
 
 set page_title ""
@@ -26,7 +29,7 @@ permission::require_permission -party_id $user_id -object_id $cc_package_id -pri
 
 if { [info exist mode] } {
     if { [string equal $mode 1] } {
-	permission::require_permission -object_id $course_id -privilege "create"
+	permission::require_permission -object_id $course_id -privilege "admin"
     } 
     set mode_p edit
 } else {
@@ -79,8 +82,9 @@ foreach attribute $attribute_list {
 }
 
 # Create the form
-ad_form -name add_course -export {return_url $return_url mode $mode} -form {
+ad_form -name add_course -export {mode $mode} -form {
     course_id:key
+    {return_url:text(hidden)}
 }
 
 
@@ -104,11 +108,14 @@ ad_form -extend -name add_course -new_data {
 	set attr_name [lindex $attribute 2]
 	lappend form_attributes [list $attr_name [set $attr_name]]
     }
-    if { [catch { set item_id [content::item::new -name $course_key -parent_id $folder_id \
-				   -content_type "dotlrn_catalog" -creation_user $user_id \
-				   -attributes $form_attributes -is_live t -title $course_key] } errmsg] } {
+    if { [dotlrn_catalog::check_name -name $course_key] } {
+	set item_id [content::item::new -name $course_key -parent_id $folder_id \
+			 -content_type "dotlrn_catalog" -creation_user $user_id \
+			 -attributes $form_attributes -is_live t -title $course_key]
+    } else {
 	ad_return_complaint 1 "\#dotlrn-catalog.name_already\#"
-    } 
+	ad_script_abort
+    }
     # Grant admin privileges to the user over the item in the CR
     permission::grant -party_id $user_id -object_id $item_id  -privilege "admin"
     
@@ -137,15 +144,13 @@ ad_form -extend -name add_course -new_data {
 } -new_request {
     set context [list [list course-list "[_ dotlrn-catalog.course_list]"] "[_ dotlrn-catalog.new_course]"]
     set page_title "[_ dotlrn-catalog.new_course]"
-    set return_url "$return_url"
 
 } -edit_request {
     set context [list [list course-list "[_ dotlrn-catalog.course_list]"] "[_ dotlrn-catalog.edit_course]"]
     set page_title "[_ dotlrn-catalog.edit_course]"
-    set return_url "$return_url"
     db_1row get_course_info { }
     db_string get_course_assessment { } -default "[_ dotlrn-catalog.not_associated]"
-
+    set return_url "$return_url?course_id=$course_id&course_name=$course_name&course_key=$course_key&index=$index"
 } -after_submit {
     ad_returnredirect "$return_url"
 }
