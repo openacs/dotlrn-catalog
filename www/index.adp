@@ -15,3 +15,4 @@ td.list-filter-pane-big {
 </if>
 
 <include src="/packages/dotlrn-catalog/lib/tree-chunk" tree_id=@tree_id@>
+

@@ -6,6 +6,7 @@
   <msg key="admin_categories">Administrar Arbol de Categorias</msg>
   <msg key="admin_this">Administrar Este Courso</msg>
   <msg key="and_has">y tiene</msg>
+  <msg key="and_has_one">y posee una asociacion con una clase o cumunidad de dotLRN.</msg>
   <msg key="asm">Assessment</msg>
   <msg key="associate">Asociar</msg>
   <msg key="associate_this">Asociar este curso</msg>
@@ -67,9 +68,11 @@
   <msg key="not_associate">No Asociar</msg>
   <msg key="not_associated">No Asociado</msg>
   <msg key="one_course_info">Informacion de un Curso</msg>
+  <msg key="permission">Permiso</msg>
   <msg key="please_type">Ingrese una palabra</msg>
   <msg key="privilege_on">Privilegio sobre</msg>
   <msg key="privilege_on_catalog">Privilegio sobre dotLRN-Catalog:</msg>
+  <msg key="professor">Profesor:</msg>
   <msg key="rev_list">Listado de Revisiones</msg>
   <msg key="revisions">Revisiones</msg>
   <msg key="revoke">Remover</msg>

@@ -1,4 +1,13 @@
 <br>
+
+<STYLE TYPE="text/css">
+table.list {
+  font-family: tahoma, verdana, helvetica; 
+  border-collapse: collapse;
+  font-size: 12px;
+}
+</STYLE>
+
 <table cellpadding="3" cellspacing="3">
   <tr>
     <td class="list-filter-pane-big" valign="top">

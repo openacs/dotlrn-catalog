@@ -1,7 +1,17 @@
 <master>
 <property name=title>@page_title@</property>
 <property name="context">@context;noquote@</property>
- <a href="course-add-edit?return_url=@return_url@">#dotlrn-catalog.new_course#</a>
+
+<STYLE TYPE="text/css">
+table.list {
+  font-family: tahoma, verdana, helvetica; 
+  border-collapse: collapse;
+  font-size: 12px;
+}
+</STYLE>
+
+
+<a href="course-add-edit?return_url=@return_url@">#dotlrn-catalog.new_course#</a>
 <if @admin_p@ eq 1>
     <if @tree_id@ not eq ""> 
     | <a href="/categories/cadmin/tree-view?tree_id=@tree_id@">#dotlrn-catalog.admin_categories#</a>

@@ -41,12 +41,16 @@ set tree_id [db_string get_tree_id { } -default "-1"]
 set category_name "[category::get_name [category::get_mapped_categories $course_id]]"
 
 # Check if user has admin permission over course_id
+set admin_p 0
 if { [permission::permission_p -object_id $cc_package_id -privilege "create"] } { 
     set item_id [dotlrn_catalog::get_item_id -revision_id $course_id]
-    set admin_p [permission::permission_p -object_id $item_id -privilege "admin"]
-} else {
-    set admin_p 0
+    if { [permission::permission_p -object_id $course_id -privilege "admin"] } { 
+	set admin_p 1
+    } else {
+	set admin_p 0
+    }
 }
+
 
 set obj_n 0
 set dotlrn_class "("

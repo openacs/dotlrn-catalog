@@ -1,7 +1,16 @@
+<STYLE TYPE="text/css">
+table.list {
+  font-family: tahoma, verdana, helvetica; 
+  border-collapse: collapse;
+  font-size: 12px;
+}
+</STYLE>
+
+
 <table>
 <if @index@ eq "yes">
    <if @admin_p@ eq 1>
-   <div align=right>
+   <div align="left">
         <a href="dt-admin/course-info?course_id=@course_id@&course_name=@name@&course_key=@course_key@&index=yes" title="#dotlrn-catalog.admin_this#"><img border=0 src=images/admin.gif></a> 
    </div>
    </if>
