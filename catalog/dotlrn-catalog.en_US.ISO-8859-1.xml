@@ -34,6 +34,7 @@
   <msg key="description">Description</msg>
   <msg key="do_you_still">Do you Still want to delete it?</msg>
   <msg key="dotlrn">DotLRN</msg>
+  <msg key="dotlrn_assoc">dotLRN Associations</msg>
   <msg key="dotlrn_classes">DotLRN Classes</msg>
   <msg key="dotlrn_com">DotLRN Communities</msg>
   <msg key="dotlrn_list">DotLRN List</msg>
