@@ -16,8 +16,7 @@
 <fullquery name="dotlrn_catalog::delete_relation.remove_relation">
      <querytext>
         begin
-          :1 := acs_rel.delete (
-                 rel_id => :rel_id);
+          acs_rel.del (:rel_id);
         end;
      </querytext>
 </fullquery>
