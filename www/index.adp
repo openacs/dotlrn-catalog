@@ -6,7 +6,7 @@
 td.list-filter-pane-big {
   background-color: #ddddff;
   vertical-align: top;
-  font-size: 13px;
+  font-size: 14px;
 }
 </STYLE>
 

@@ -10,7 +10,6 @@ table.list {
 }
 </STYLE>
 
-
 <a href="course-add-edit?return_url=@return_url@">#dotlrn-catalog.new_course#</a>
 <if @admin_p@ eq 1>
     <if @tree_id@ not eq ""> 
