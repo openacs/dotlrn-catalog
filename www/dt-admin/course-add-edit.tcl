@@ -28,7 +28,7 @@ if { [info exist mode] } {
     if { [string equal $mode 1] } {
 	permission::require_permission -object_id $course_id -privilege "create"
     } 
-    set mode_p display
+    set mode_p edit
 } else {
     set mode_p edit
 }
@@ -107,7 +107,7 @@ ad_form -extend -name add_course -new_data {
     if { [catch { set item_id [content::item::new -name $course_key -parent_id $folder_id \
 				   -content_type "dotlrn_catalog" -creation_user $user_id \
 				   -attributes $form_attributes -is_live t] } errmsg] } {
-	ad_return_complaint 1 "\#dotlrn-catalog.name_already\#"
+	ad_return_complaint 1 "\#dotlrn-catalog.name_already\# $errmsg"
     } 
     # Grant admin privileges to the user over the item in the CR
     permission::grant -party_id $user_id -object_id $item_id  -privilege "admin"
