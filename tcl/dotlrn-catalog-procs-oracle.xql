@@ -8,7 +8,7 @@
           :1 := acs_rel.new (
                  rel_type => :type,
                  object_id_one => :course_id,
-                 object_id_two => :class_id);
+                 object_id_two => :object_id);
         end;
      </querytext>
 </fullquery>
