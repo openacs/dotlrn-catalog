@@ -77,7 +77,12 @@ template::list::create \
         class  {
             label "[_ dotlrn-catalog.class_name]"
             display_template {
-                <a href="dotlrn-info?object_id=@classes_list.object_id@&type=class&course_id=$course_id&course_name=$name&course_key=$course_key">@classes_list.pretty_name@</a>
+		<if $index not eq "">
+                   <a href="dotlrn-info?object_id=@classes_list.object_id@&type=class&course_id=$course_id&course_name=$name&course_key=$course_key">@classes_list.pretty_name@</a> 
+                </if> 
+		<else>
+		   <a href="../dotlrn-info?object_id=@classes_list.object_id@&type=class&course_id=$course_id&course_name=$name&course_key=$course_key">@classes_list.pretty_name@</a> 
+		</else>
             }
         }
         dep_name {
@@ -113,7 +118,28 @@ template::list::create \
         community  {
             label "[_ dotlrn-catalog.com_name]"
             display_template {
-                <a href="dotlrn-info?object_id=@com_list.object_id@&type=community&course_id=$course_id&course_name=$name&course_key=$course_key">@com_list.pretty_name@</a>
+		<if $index not eq "">
+                    <a href="dotlrn-info?object_id=@com_list.object_id@&type=community&course_id=$course_id&course_name=$name&course_key=$course_key">@com_list.pretty_name@</a>
+		</if>
+		<else>
+                    <a href="../dotlrn-info?object_id=@com_list.object_id@&type=community&course_id=$course_id&course_name=$name&course_key=$course_key">@com_list.pretty_name@</a>
+		</else>
             }
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

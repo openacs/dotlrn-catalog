@@ -53,7 +53,7 @@ template::list::create \
 	    label "[_ dotlrn-catalog.course_key]"
 	    display_template {
 		<div align=left>
-		@course_list.course_key@
+		<a href="course-info?course_id=@course_list.course_id@&course_name=@course_list.course_name@&course_key=@course_list.course_key@">@course_list.course_key@</a>
 		</div>
 	    }
 	}
@@ -61,7 +61,7 @@ template::list::create \
 	    label "[_ dotlrn-catalog.course_name]"
 	    display_template {
 		<div align=left>
-		<a href="course-info?course_id=@course_list.course_id@&course_name=@course_list.course_name@&course_key=@course_list.course_key@">@course_list.course_name@</a>
+		@course_list.course_name@
 		</div>
 	    }
 	}

@@ -6,6 +6,7 @@
   <msg key="admin_categories">Manage Category Tree</msg>
   <msg key="admin_this">Admin This Course</msg>
   <msg key="and_has">and has</msg>
+  <msg key="and_has_one">And has one association to dotLRN class or community.</msg>
   <msg key="asm">Assessment</msg>
   <msg key="associate">Associate</msg>
   <msg key="associate_this">Associate this course</msg>
