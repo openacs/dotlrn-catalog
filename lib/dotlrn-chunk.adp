@@ -13,9 +13,9 @@
     <table>
       <tr>
          <td valign="top">
-    	  <if @n_profs@ gt 0>
-	      <ul>
-	      @instructor_role_pretty_plural@:
+	  <ul>
+    	   <if @n_profs@ gt 0>
+	     @instructor_role_pretty_plural@:
 	      <multiple name="users">
 	       <if @users.rel_type@ eq "dotlrn_instructor_rel">
 	        <li>
@@ -28,49 +28,47 @@
 		  </else>
 	        </if>
 	      </multiple>
-	    </if>
-	    <else>
-	      <li><small>#dotlrn-portlet.no_instructor_members#</small>
-	    </else>
-	    </ul>
-            </td></tr>
-	    <tr>
-            <td valign="top">
-	      <if @n_tas@ gt 0>
-	       <ul>
-	       @teaching_assistant_role_pretty_plural@:
-		 <multiple name="users">
-		   <if @users.rel_type@ eq "dotlrn_ta_rel">
-		   <li>
-	          <%= [acs_community_member_link -user_id $users(user_id) -label "$users(first_names) $users(last_name)"] %>
- 	  	   <if @email_p@ eq 1>
-	            (<%= [email_image::get_user_email -user_id $users(user_id)] %>)
-		   </if>
-                   <else>
-	            (<a href="mailto:@users.email@">@users.email@</a>)
-		   </else>
-	           </li>
-		      </if>
-		   </multiple>
-		  </ul>
+	  </if>
+	  </ul>
+         </td></tr>
+       <tr>
+         <td valign="top">
+         <ul>
+	   <if @n_tas@ gt 0>
+	    @teaching_assistant_role_pretty_plural@:
+	    <multiple name="users">
+	      <if @users.rel_type@ eq "dotlrn_ta_rel">
+		<li>
+	        <%= [acs_community_member_link -user_id $users(user_id) -label "$users(first_names) $users(last_name)"] %>
+ 	  	<if @email_p@ eq 1>
+	          (<%= [email_image::get_user_email -user_id $users(user_id)] %>)
 		</if>
-	     </td></tr>
-	     <tr><td valign="top">
-	      <if @n_cas@ gt 0>
-	      <ul>	
-	         @course_assistant_role_pretty_plural@:
-	         <multiple name="users">
-	          <if @users.rel_type@ eq "dotlrn_ca_rel">
-	          <li>
-	          <%= [acs_community_member_link -user_id $users(user_id) -label "$users(first_names) $users(last_name)"] %>
-		  <if @email_p@ eq 1>
-	            (<%= [email_image::get_user_email -user_id $users(user_id)] %>) 
-		   </if>
-                   <else>
-	            (<a href="mailto:@users.email@">@users.email@</a>)
-		   </else>
-	          </li>
-        	</if>
+                <else>
+	          (<a href="mailto:@users.email@">@users.email@</a>)
+		</else>
+	        </li>
+	      </if>
+	    </multiple>
+	   </if>
+	  </ul>
+	  </td></tr>
+	  <tr>
+          <td valign="top">
+	  <ul>	
+	    <if @n_cas@ gt 0>
+	      @course_assistant_role_pretty_plural@:
+	      <multiple name="users">
+	       <if @users.rel_type@ eq "dotlrn_ca_rel">
+	         <li>
+	         <%= [acs_community_member_link -user_id $users(user_id) -label "$users(first_names) $users(last_name)"] %>
+	         <if @email_p@ eq 1>
+	           (<%= [email_image::get_user_email -user_id $users(user_id)] %>) 
+		 </if>
+                 <else>
+	           (<a href="mailto:@users.email@">@users.email@</a>)
+		 </else>
+	         </li>
+               </if>
 	      </multiple>
 	    </ul>
 	  </if>
