@@ -15,6 +15,7 @@ set return_url "course-list"
 
 set cc_package_id [apm_package_id_from_key "dotlrn-catalog"]
 
+
 permission::require_permission -party_id $user_id -object_id $cc_package_id -privilege "create"
 
 if {[permission::permission_p -party_id $user_id -object_id $cc_package_id -privilege "admin"]} {
@@ -30,9 +31,6 @@ if { [string equal [lindex [lindex $tree_list 0] 1] "dotlrn-course-catalog"] } {
 } else {
     set tree_id ""
 }
-
-
-set asm_package_id [apm_package_id_from_key assessment]
 
 if { [acs_user::site_wide_admin_p] } {
     if { [info exist keyword] } {

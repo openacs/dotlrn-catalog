@@ -174,7 +174,6 @@ ad_proc -private dotlrn_catalog::grant_permissions {
     @creation_user@  The user_id of the user that creates the course_id
 } {
     permission::grant -party_id $party_id -object_id $object_id  -privilege "admin"
-    set asm_package_id [apm_package_id_from_key assessment]
 
     db_foreach assessment { } {
     	if {[permission::permission_p -party_id $creation_user -object_id $assessment_id -privilege "admin"] == 1} {
@@ -195,7 +194,6 @@ ad_proc -private dotlrn_catalog::revoke_permissions {
     @creation_user@  The user_id of the user that creates the course_id
 } {
     permission::revoke -party_id $party_id -object_id $object_id  -privilege "admin"
-    set asm_package_id [apm_package_id_from_key assessment]
     
     db_foreach assessment { } {
 	if { [permission::permission_p -party_id $creation_user -object_id $assessment_id -privilege admin] == 1 } {

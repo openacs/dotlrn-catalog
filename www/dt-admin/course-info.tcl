@@ -23,9 +23,6 @@ permission::require_permission -object_id $course_id -privilege "admin"
 
 set page_title "$course_key [_ dotlrn-catalog.course_info]"
 
-
-set asm_package_id [apm_package_id_from_key assessment]
-
 db_1row get_course_info { } 
 
 set asm_name [db_string get_asm_name { } -default "[_ dotlrn-catalog.not_associated]"]

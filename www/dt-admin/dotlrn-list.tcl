@@ -22,8 +22,6 @@ permission::require_permission -party_id $user_id -object_id $course_id -privile
 
 set context [list [list course-list  "[_ dotlrn-catalog.course_list]"] "[_ dotlrn-catalog.dotlrn_list]"]
 
-set asm_package_id [apm_package_id_from_key assessment]
-
 db_multirow -extend { rel type } classes_list get_dotlrn_classes {} {
     set rel [dotlrn_catalog::relation_between -object_one $course_id -object_two $object_id]
     set type "class"

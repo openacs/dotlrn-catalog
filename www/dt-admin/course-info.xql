@@ -14,8 +14,7 @@
             select cr.title from
             cr_folders cf, cr_items ci, cr_revisions cr, as_assessments a
             where cr.revision_id = ci.latest_revision and a.assessment_id = cr.revision_id and
-            ci.parent_id = cf.folder_id and cf.package_id = :asm_package_id and
-            ci.item_id = :assessment_id order by cr.title
+            ci.parent_id = cf.folder_id and ci.item_id = :assessment_id order by cr.title
       </querytext>
 </fullquery>
 

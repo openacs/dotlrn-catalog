@@ -31,8 +31,6 @@ permission::require_permission -party_id $user_id -object_id $course_id -privile
 
 set context [list [list "course-list"  "[_ dotlrn-catalog.course_list]"] "[_ dotlrn-catalog.rev_list]"]
 
-set asm_package_id [apm_package_id_from_key assessment]
-
 db_multirow -extend { asm_name rel } course_list get_course_info { } {
     set asm_name [db_string get_asm_name { } -default "[_ dotlrn-catalog.not_associated]"]
     set rel [dotlrn_catalog::has_relation -course_id $course_id]

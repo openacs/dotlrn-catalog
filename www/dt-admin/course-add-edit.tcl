@@ -37,7 +37,6 @@ if { [info exist mode] } {
 }
 
 # Get assessments
-set asm_package_id [apm_package_id_from_key assessment]
 set asm_list [list [list "[_ dotlrn-catalog.not_associate]" "-1"]]
 db_foreach assessment { } {
     if { [permission::permission_p -object_id $assessment_id -privilege "admin"] == 1 } {
