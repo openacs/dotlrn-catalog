@@ -81,7 +81,7 @@ template::list::create \
 		#dotlrn-catalog.no# (<a href="dotlrn-list?course_id=@course_list.course_id@&course_key=@course_list.course_key@&return_url=$return_url&course_name=@course_list.course_name@" title="\#dotlrn-catalog.associate_this\#"><i>#dotlrn-catalog.associate#</i></a>)
 		</if>
 		<else>
-		#dotlrn-catalog.yes# (<a href="watch-association?course_id=@course_list.course_id@&course_key=@course_list.course_key@&return_url=$return_url&course_name=@course_list.course_name@" title="\#dotlrn-catalog.watch_assoc#"><i>#dotlrn-catalog.watch#</i></a>)
+		#dotlrn-catalog.yes# (<a href="course-details?course_id=@course_list.course_id@&course_key=@course_list.course_key@&return_url=$return_url&course_name=@course_list.course_name@" title="\#dotlrn-catalog.course_details#"><i>#dotlrn-catalog.watch#</i></a>)
 		</else>
 	    }
 	}

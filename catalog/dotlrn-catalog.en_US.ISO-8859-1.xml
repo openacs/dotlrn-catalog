@@ -21,6 +21,7 @@
   <msg key="confirm_delete">Confirm Delete Of </msg>
   <msg key="course_admin">Course Administration</msg>
   <msg key="course_catalog">DotLRN Catalog Index</msg>
+  <msg key="course_details">Course Details</msg>
   <msg key="course_info">Description:</msg>
   <msg key="course_key">Course Key:</msg>
   <msg key="course_list">Your Course List</msg>
@@ -51,7 +52,7 @@
   <msg key="has_no">and has &lt;b&gt;No&lt;/b&gt; associations to dotLRN class or community</msg>
   <msg key="has_one">has one association to dotLRN class or community</msg>
   <msg key="info">Course Information</msg>
-  <msg key="is_assoc">is associated to:</msg>
+  <msg key="is_assoc">is associated with:</msg>
   <msg key="label_title">Check/uncheck all rows</msg>
   <msg key="make_live">Make This Course Live</msg>
   <msg key="manage_per">Manage Permissions</msg>
@@ -88,6 +89,5 @@
   <msg key="version">Version</msg>
   <msg key="versions">Versions</msg>
   <msg key="watch">Watch</msg>
-  <msg key="watch_assoc">Watch Association</msg>
   <msg key="yes">Yes</msg>
 </message_catalog>

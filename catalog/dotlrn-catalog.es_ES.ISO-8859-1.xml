@@ -21,6 +21,7 @@
   <msg key="confirm_delete">Corfirmar borrado de</msg>
   <msg key="course_admin">Administracion de Cursos</msg>
   <msg key="course_catalog">Indice del Catalogo dotLRN</msg>
+  <msg key="course_details">Detalles del Curso</msg>
   <msg key="course_info">Informacion del Curso:</msg>
   <msg key="course_key">Llave del Curso:</msg>
   <msg key="course_list">Su listado de Cursos</msg>
@@ -34,6 +35,7 @@
   <msg key="description">Descripcion</msg>
   <msg key="do_you_still">Aun quiere borrarlo?</msg>
   <msg key="dotlrn">dotLRN</msg>
+  <msg key="dotlrn_assoc">Asociaciones con dotLRN</msg>
   <msg key="dotlrn_classes">Clases de dotLRN</msg>
   <msg key="dotlrn_com">Comunidades de dotLRN</msg>
   <msg key="dotlrn_list">Listado de dotLRN</msg>
@@ -49,6 +51,7 @@
   <msg key="grantrevoke">Otorgar/Remover</msg>
   <msg key="has_no">y &lt;b&gt;No&lt;/b&gt; posee asociaciones a clases o comunidades de dotLRN</msg>
   <msg key="has_one">posee una asociacion a una clase o comunidad de dotLRN</msg>
+  <msg key="info">Informacion del curso</msg>
   <msg key="is_assoc">esta asociado a:</msg>
   <msg key="label_title">Marcar/Desmarcar todas las filas</msg>
   <msg key="make_live">Hacer este Curso Disponible</msg>
@@ -86,8 +89,5 @@
   <msg key="version">Version</msg>
   <msg key="versions">Versiones</msg>
   <msg key="watch">Observar</msg>
-  <msg key="watch_assoc">Observar Asociaciones</msg>
   <msg key="yes">Si</msg>
 </message_catalog>
-
-
