@@ -39,7 +39,7 @@
 	</if>
 	<else>
 	   <if @index@ eq "yes">
-	       #dotlrn-catalog.yes# (<a href="cc-admin/watch-association?course_id=@course_id@&course_key=@course_key@&return_url=@return_url@&course_name=@name@" title="#dotlrn-catalog.watch_assoc#"><i>#dotlrn-catalog.watch#</i></a>)
+	       #dotlrn-catalog.yes# (<a href="dt-admin/watch-association?course_id=@course_id@&course_key=@course_key@&return_url=@return_url@&course_name=@name@" title="#dotlrn-catalog.watch_assoc#"><i>#dotlrn-catalog.watch#</i></a>)
 	   </if>
 	   <else>
 	       #dotlrn-catalog.yes# (<a href="watch-association?course_id=@course_id@&course_key=@course_key@&return_url=@return_url@&course_name=@name@" title="#dotlrn-catalog.watch_assoc#"><i>#dotlrn-catalog.watch#</i></a>)

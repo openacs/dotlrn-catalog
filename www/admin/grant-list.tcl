@@ -20,7 +20,7 @@ if {[string equal $return_url ""]} {
     set return_url "grant-list"
 }
 
-set context [list [list "../cc-admin/course-list" "[_ dotlrn-catalog.course_list]"] $page_title]
+set context [list [list "../dt-admin/course-list" "[_ dotlrn-catalog.course_list]"] $page_title]
 
 # To search for users
 ad_form -name search_user -form {

@@ -9,7 +9,7 @@ ad_page_contract {
 }
 set page_title "[_ dotlrn-catalog.course_catalog]"
 set context ""
-set return_url "cc-admin/course-list"
+set return_url "dt-admin/course-list"
 
 set cc_package_id [apm_package_id_from_key "dotlrn-catalog"]
 

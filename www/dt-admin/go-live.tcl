@@ -10,4 +10,4 @@ ad_page_contract {
 
 dotlrn_catalog::set_live -revision_id $revision_id
 
-ad_returnredirect "/dotlrn-catalog/cc-admin/course-list"
+ad_returnredirect "/dotlrn-catalog/dt-admin/course-list"
