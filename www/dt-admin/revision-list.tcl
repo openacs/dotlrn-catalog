@@ -35,4 +35,8 @@ db_multirow -extend { asm_name rel } course_list get_course_info { } {
     set asm_name [db_string get_asm_name { } -default "[_ dotlrn-catalog.not_associated]"]
     set rel [dotlrn_catalog::has_relation -course_id $course_id]
 }
+db_multirow -extend { asm_name rel } live_course get_live_course { } {
+    set asm_name [db_string get_asm_name { } -default "[_ dotlrn-catalog.not_associated]"]
+    set rel [dotlrn_catalog::has_relation -course_id $course_id]
+}
 

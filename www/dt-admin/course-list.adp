@@ -10,10 +10,8 @@ table.list {
 }
 </STYLE>
 
-<a href="course-add-edit?return_url=@return_url@">#dotlrn-catalog.new_course#</a>
-<if @admin_p@ eq 1>
     <if @tree_id@ not eq ""> 
-    | <a href="/categories/cadmin/tree-view?tree_id=@tree_id@">#dotlrn-catalog.admin_categories#</a>
+     <a href="/categories/cadmin/tree-view?tree_id=@tree_id@">#dotlrn-catalog.admin_categories#</a>
     </if>
 | <a href="../admin/grant-list?return_url=@return_url@">#dotlrn-catalog.grant_per#</a>
 </if>
@@ -27,6 +25,10 @@ table.list {
 </form>
 <br>
 <listtemplate name=course_list></listtemplate>
-
 </center>
+<br>
+<a class=button href="course-add-edit?return_url=@return_url@">#dotlrn-catalog.new_course#</a>
+<if @admin_p@ eq 1>
+
+
 

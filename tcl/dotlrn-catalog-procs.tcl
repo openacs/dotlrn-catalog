@@ -240,3 +240,36 @@ ad_proc -private dotlrn_catalog::get_categories_from_tree {
     }
     return $return_list
 }
+
+ad_proc -private dotlrn_catalog::get_categories_widget {
+} {
+    Returns a list of all objects associated to one category under the dotlrn catalog tree_id
+    @tree_id@ The tree_id that holds the objects
+} {
+    set return_list ""
+    set name ""
+    set cc_package_id [apm_package_id_from_key "dotlrn-catalog"]
+    
+    # The tree id from categories
+    set tree_list [category_tree::get_mapped_trees $cc_package_id]
+    if { [string equal [lindex [lindex $tree_list 0] 1] "dotlrn-course-catalog"] } {
+	set tree_id [lindex [lindex $tree_list 0] 0]
+    } else {
+	set tree_id ""
+    }
+    
+    
+    set categories [category_tree::get_tree $tree_id]
+    
+    foreach cat $categories {
+	set name ""
+	set j [lindex $cat 3]
+	for { set i 0} { $i < $j } {incr i} {
+	    append name "."
+	}
+	append name " [lindex $cat 1]"
+	lappend return_list [list $name [lindex $cat 0]]
+    }
+    
+    return $return_list
+}

@@ -67,9 +67,6 @@ template::list::create \
 	    label "[_ dotlrn-catalog.course_key]"
 	    display_template {
 		<div align=left>
-		<a href=course-add-edit?course_id=@course_list.course_id@&return_url=$return_url&mode=1 \
-		    title="[_ dotlrn-catalog.new_ver]">\
-		        <img border=0 src=/resources/Edit16.gif></a>
 		<a href="revision-list?course_key=@course_list.course_key@&return_url=$return_url&course_id=@course_list.course_id@" title="[_ dotlrn-catalog.see_all_rev]">@course_list.course_key@</a>
 		</div>
 	    }
@@ -118,9 +115,23 @@ template::list::create \
 		<a href="grant-user-list?object_id=@course_list.item_id@&creation_user=@course_list.creation_user@&course_key=@course_list.course_key@">\#dotlrn-catalog.manage_per\#</a>
 	    }
 	}
-	delete {
+	view {
+	    label "[_ dotlrn-catalog.versions]"
+	    
 	    display_template {
-		<a href="course-delete?object_id=@course_list.item_id@&creation_user=@course_list.creation_user@&course_key=@course_list.course_key@" title="\#dotlrn-catalog.delete\#"><img border=0 src=/resources/Delete16.gif></a>
+		<a href="revision-list?course_key=@course_list.course_key@&return_url=$return_url&course_id=@course_list.course_id@" title="[_ dotlrn-catalog.see_all_rev]">[_ dotlrn-catalog.versions]</a>
+	    }
+
+	}
+	actions {
+
+	    label "[_ dotlrn-catalog.admin] [_ dotlrn-catalog.Actions]"
+	    display_template {
+	    <div align=center>
+       	    <a href=course-add-edit?course_id=@course_list.course_id@&mode=1 
+	    title="[_ dotlrn-catalog.new_ver]"><img border=0 src=/resources/Edit16.gif></a>
+            <a href="course-delete?object_id=@course_list.item_id@&creation_user=@course_list.creation_user@&course_key=@course_list.course_key@" title="\#dotlrn-catalog.delete\#"><img border=0 src=/resources/Delete16.gif></a>
+		</div>
 	    }
 	}
     }

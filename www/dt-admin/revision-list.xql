@@ -6,9 +6,22 @@
 	    select dc.course_id, dc.course_key, dc.course_name, dc.course_info, dc.assessment_id, ci.live_revision
 	    from dotlrn_catalog dc, cr_items ci
 	    where ci.item_id = :item_id and 
-	    dc.course_id in (select revision_id from cr_revisions where item_id = :item_id )
+	    dc.course_id in (select revision_id from cr_revisions where item_id = :item_id ) 
+	    and ci.live_revision <> dc.course_id order by dc.course_id asc
       </querytext>
 </fullquery>
+	
+<fullquery name="get_live_course">      
+      <querytext>
+	    select dc.course_id, dc.course_key, dc.course_name, dc.course_info, dc.assessment_id, ci.live_revision
+	    from dotlrn_catalog dc, cr_items ci
+	    where ci.item_id = :item_id and 
+	    dc.course_id in (select revision_id from cr_revisions where item_id = :item_id ) 
+	    and ci.live_revision=dc.course_id
+
+      </querytext>
+</fullquery>
+
 
 <fullquery name="get_asm_name">
       <querytext>

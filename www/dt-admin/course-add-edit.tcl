@@ -24,6 +24,7 @@ set context ""
 set user_id [ad_conn user_id]
 set cc_package_id [apm_package_id_from_key "dotlrn-catalog"]
 
+
 # Check for create permissions over dotlrn-catalog package
 permission::require_permission -party_id $user_id -object_id $cc_package_id -privilege "create"
 
@@ -90,9 +91,10 @@ ad_form -name add_course -export {mode $mode} -form {
 ad_form -extend -name add_course -form $elements
 
 ad_form -extend -name add_course -form {
-    {category_ids:integer(category),multiple,optional
+    {category_ids:integer(multiselect),multiple,optional
 	{label "[_ dotlrn-catalog.categories]"}
 	{html {size 4}}
+	{options [dotlrn_catalog::get_categories_widget]}
 	{value "-1"}
     }
 }
@@ -140,6 +142,13 @@ ad_form -extend -name add_course -new_data {
     if { ![string equal $category_ids "-1"] } {
 	category::map_object -object_id $course_id $category_ids
     }
+
+    if { [string equal $return_url "course-list"] } {
+        set return_url "$return_url"
+    } else {
+        set return_url "$return_url?course_id=$course_id&course_name=$course_name&course_key=$course_key&index=$index"
+    }
+
 } -new_request {
     set context [list [list course-list "[_ dotlrn-catalog.course_list]"] "[_ dotlrn-catalog.new_course]"]
     set page_title "[_ dotlrn-catalog.new_course]"
@@ -149,7 +158,7 @@ ad_form -extend -name add_course -new_data {
     set page_title "[_ dotlrn-catalog.edit_course]"
     db_1row get_course_info { }
     db_string get_course_assessment { } -default "[_ dotlrn-catalog.not_associated]"
-    set return_url "$return_url?course_id=$course_id&course_name=$course_name&course_key=$course_key&index=$index"
+    set category_ids [category::get_mapped_categories $course_id]
 } -after_submit {
     ad_returnredirect "$return_url"
 }
