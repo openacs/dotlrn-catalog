@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
+<book>
+  <title>dotlrn-Catalog Documentation</title>
+
+  <chapter>
+    <title>DESIGN</title>
+
+    <para>The dotLRN-Catalog package make use of various packages like
+    acs-content-repository, categories, assessment dotLRN. It makes use of
+    acs-content-repositoy API to create the data-table and store the data in
+    the database. It is designed to provide proffesors a way to create courses
+    that can have different versions (revisions) and than can be associated to
+    dotLRN classes and communities, categorized in different categories, and
+    also associate one assessment that will provide a way to the users to
+    register to the system, enroll to different dotlrn classes, make member of
+    communities, etc.</para>
+
+    <section>
+      <title>Data Model:</title>
+
+      <para>The basic table that has all the information about dotlrn-catalog
+      courses is:</para>
+
+      <para><screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/dcat_table.JPG" />
+            </imageobject>
+          </mediaobject>
+        </screenshot></para>
+
+      <para>I</para>
+
+      <para>Indexes: "dotlrn_catalog_pkey" primary key, btree (course_id)
+      Foreign-key constraints: "$1" FOREIGN KEY (course_id) REFERENCES
+      cr_revisions(revision_id)</para>
+
+      <para>The new content_type and attribute table are created with the
+      after-install apm-callback-proc as follows:</para>
+
+      <para></para>
+
+      <para>content::type::new -content_type "dotlrn_catalog" \ -pretty_name
+      "DotLRN Catalog" \ -pretty_plural "DotLRN Catalog" \ -table_name
+      "dotlrn_catalog" \ -id_column "course_id"</para>
+
+      <para># now set up the attributes that by default we need for the course
+      content::type::attribute::new \ -content_type "dotlrn_catalog" \
+      -attribute_name "course_key" \ -datatype "string" \ -pretty_name "Course
+      Key" \ -pretty_plural "Course Key" \ -sort_order 1 \ -column_spec
+      "varchar(50)"</para>
+
+      <para>content::type::attribute::new \ -content_type "dotlrn_catalog" \
+      -attribute_name "course_name" \ -datatype "string" \ -pretty_name
+      "Course Name" \ -sort_order 2 \ -column_spec "varchar(200)"</para>
+
+      <para>content::type::attribute::new \ -content_type "dotlrn_catalog" \
+      -attribute_name "course_info" \ -datatype "text" \ -pretty_name "Course
+      Information" \ -sort_order 3 \ -column_spec "text"</para>
+
+      <para>content::type::attribute::new \ -content_type "dotlrn_catalog" \
+      -attribute_name "assessment_id" \ -datatype "integer" \ -pretty_name
+      "Assessment ID" \ -sort_order 4 \ -column_spec "integer"</para>
+    </section>
+
+    <section>
+      <title>Content Folder</title>
+
+      <para>To store the the courses in the Conten Repository, a
+      content-folder with name and label "DotLRN Catalog" was created. Also
+      the previously created content_type is registered to the folder, by
+      calling to the same after-install apm-callback-proc as follows:</para>
+
+      <para>set folder_id [content::folder::new -name "DotLRN Catalog" -label
+      "DotLRN Catalog"] content::folder::register_content_type -folder_id
+      $folder_id -content_type "dotlrn_catalog"</para>
+    </section>
+
+    <section>
+      <title>Roles</title>
+
+      <para>Three new roles were created to use them when createing the
+      relations. The first one is for the dotlrn-catalog course and it's
+      called d_catalog_role, the second one is for the dotlrn class and it's
+      called dotlrn-class_role and the last one is for the dotlrn communities
+      and it's called dotlrn_com_role. This roles are the first thing that the
+      package create on installation and their creation code is:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Oracle:</para>
+
+          <para>begin acs_rel_type.create_role('d_catalog_role', 'DotLRN
+          Course Catalog Role', 'DotLRN Course Catalog Role');
+          acs_rel_type.create_role('dotlrn_class_role', 'dotLRN Class Role',
+          'dotLRN Class Role'); acs_rel_type.create_role('dotlrn_com_role',
+          'dotLRN Community Role', 'dotLRN Community Role'); commit; end; /
+          show errors</para>
+        </listitem>
+
+        <listitem>
+          <para>Postgres:</para>
+
+          <para>create function inline_0 ( ) returns integer as ' begin
+          PERFORM acs_rel_type__create_role(''d_catalog_role'', ''DotLRN
+          Catalog Role'', ''DotLRN Catalog Role''); PERFORM
+          acs_rel_type__create_role(''dotlrn_class_role'', ''dotLRN Class
+          Role'', ''dotLRN Class Role''); PERFORM
+          acs_rel_type__create_role(''dotlrn_com_role'', ''dotLRN Community
+          Role'', ''dotLRN Community Role''); return 0; end;' language
+          'plpgsql'; select inline_0 ( ); drop function inline_0 ( );</para>
+        </listitem>
+      </itemizedlist>
+    </section>
+
+    <section>
+      <title>Relations</title>
+
+      <para>Two new relations were created to associate dotlrn classes and
+      communities to dotlrn-catalog courses. On associates the dotlrn_catalog
+      type with dotlrn_class_instance type for dotlrn classes, and the other
+      one associates the dotlrn_catalog type with dotlrn_club for the
+      communities. Here is were the previous created roles take place:</para>
+
+      <para># To associate one course to dotlrn class rel_types::new -role_one
+      d_catalog_role -role_two dotlrn_class_role dotlrn_catalog_class_rel \
+      "DotLRN Catalog Class" "DotLRN Catalog Class" dotlrn_catalog 0 1
+      dotlrn_class_instance 0 1</para>
+
+      <para># To associate one course to dotrln community rel_types::new
+      -role_one d_catalog_role -role_two dotlrn_com_role
+      dotlrn_catalog_dotcom_rel \ "DotLRN Catalog Community" "DotLRN Catalog
+      Community" dotlrn_catalog 0 1 dotlrn_club 0 1</para>
+    </section>
+
+    <section>
+      <title>Privileges</title>
+
+      <para>Two privileges are managed in this package at differents levels,
+      one is the privilige that a user has over dotlr-catalog package (admin,
+      create, none), and the other one the privilege that the user has over
+      one dotlrn-catalog course (admin,none). Depending of what privilege the
+      users has, acces to some pages and the display of information will be
+      different. For example if you you have admin or create privilege over
+      dotlrn-catalog package then you can acces to every page under the
+      "dotlrn-catalog/dt-catalog/" url, if you are admin all courses will be
+      shown there but if you only have create privilege the only your courses
+      will be show. When you create one course then the admin privilege will
+      be granted to you over that course (item_id). There are two ways to
+      grant permission to other users at the same two levels described before.
+      The admin of dotlrn-catalog package can grant/revoke other users the
+      create privilege over the package, and, any user can grant admin
+      privilege over one of his courses to any other user in the
+      system.</para>
+    </section>
+
+    <section>
+      <title>Category Tree</title>
+
+      <para>The package installation also mounts an instance of itself under
+      the dotlrn-catalog url, here another amp-callback-proc is called
+      (after-mount) to create the category tree that will allow to categorize
+      each course in different ways. The category tree is created as
+      follows:</para>
+
+      <para># To categorize courses set tree_id [category_tree::add -name
+      "dotlrn-course-catalog"] category_tree::map -tree_id $tree_id -object_id
+      $package_id -assign_single_p "t"</para>
+    </section>
+  </chapter>
+
+  <chapter>
+    <title>USERS MANUAL</title>
+
+    <para>Here are some simple statments to interact with the dotlrn-catalog
+    package. For sections 2.1 to 2.6 the user requires to have create or admin
+    privileges under the dotlrn-catalog, package. If you can see the Admin
+    link in the top right corner of the page then you have privileges on the
+    dotlrn-package. If you can't see it then you may be interested in Simple
+    Users Section</para>
+
+    <section>
+      <title>Manage Category Tree</title>
+
+      <para>Once you click to admin link then you will be redirected to your
+      course list page, where if you are dotlrn-catalog admin or
+      site-wide-admin then the link Manage Category Tree will appear:</para>
+
+      <para><screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/cat1.JPG" />
+            </imageobject>
+          </mediaobject>
+        </screenshot>Once you click un the link you will redirect to a page
+      were you can add/remove categories and subcategories to the already
+      created tree (dotlrn_catalog_tree).</para>
+
+      <para><screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/cat2.JPG" />
+            </imageobject>
+          </mediaobject>
+        </screenshot><screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/cat3.JPG" />
+            </imageobject>
+          </mediaobject>
+        </screenshot><screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/cat4.JPG" />
+            </imageobject>
+          </mediaobject>
+        </screenshot></para>
+    </section>
+
+    <section>
+      <title>Create New Course or New Course Version</title>
+
+      <para>To create a new course click on the New Course link and you will
+      be redirect to a page were a form to create a new course is
+      presented:</para>
+
+      <para></para>
+
+      <itemizedlist>
+        <listitem>
+          <para>The Course Key field is a unique identifier that will identify
+          the course. When creating a new course revision then this validation
+          will not be checked.</para>
+        </listitem>
+
+        <listitem>
+          <para>The Course Name is the name of the course.</para>
+        </listitem>
+
+        <listitem>
+          <para>The Course Information is for describe the course, html is
+          fine here.</para>
+        </listitem>
+
+        <listitem>
+          <para>The Assessment ID select box is to associate the assessment
+          that the users will have to answer (Enroll button) to perform an
+          specific action. Here only the assessment that the user has created
+          or has received permissions on will be shown. If no assesment is
+          associated then no user can enroll to one course.</para>
+        </listitem>
+
+        <listitem>
+          <para>The Categories select box is to select to wich category the
+          course will be shown in the index page. To create a new course
+          version click on the icon on the left of Course Key information and
+          change the fields you want.</para>
+        </listitem>
+      </itemizedlist>
+
+      <para><screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/new1.JPG" />
+            </imageobject>
+          </mediaobject>
+        </screenshot> To create a new course version click on the icon on the
+      left of Course Key information and change the fields you want.</para>
+
+      <screenshot>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/new2.JPG" />
+          </imageobject>
+        </mediaobject>
+      </screenshot>
+
+      <para>When creating a new course version the new information will be
+      shown in all the site, you can change between all version.</para>
+
+      <para><screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/new3.JPG" />
+            </imageobject>
+          </mediaobject>
+        </screenshot>Also you can categorize your course latter if you didn't
+      categorize it in the first place by making click in the course name (
+      redierects you to Course description) and then by making click on the
+      Categorize button.</para>
+
+      <para><screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/buttons.JPG" />
+            </imageobject>
+          </mediaobject>
+        </screenshot></para>
+    </section>
+
+    <section>
+      <title>Associate to dotLRN class or community</title>
+
+      <para>Each course can be associted to one or various dotlrn classes or
+      communities. These associations will be displayed in the course
+      description page to give the information to the user about the classess
+      or communities that he/she will become a member of. You can associte one
+      course by making click in the associte link in Your Course List or in
+      the course description page.</para>
+
+      <para><screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/assoc1.JPG" />
+            </imageobject>
+          </mediaobject>
+        </screenshot><screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/assoc2.JPG" />
+            </imageobject>
+          </mediaobject>
+        </screenshot>To associate classes or communities to the course select
+      check boxes to associate one or various at the same time. Associate
+      classes and communities individually.</para>
+
+      <para><screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/assoc3.JPG" />
+            </imageobject>
+          </mediaobject>
+        </screenshot>If you already have associations to dotLRN then a watch
+      link will appear.</para>
+
+      <para><screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/assoc4.JPG" />
+            </imageobject>
+          </mediaobject>
+        </screenshot><screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/assoc5.JPG" />
+            </imageobject>
+          </mediaobject>
+        </screenshot></para>
+    </section>
+
+    <section>
+      <title>Delete one course</title>
+
+      <para>To delete one course you can click in trash icon on the right if
+      you are in your course list or the delete button if you are in the
+      Course Description page:</para>
+
+      <para><screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/assoc4.JPG" />
+            </imageobject>
+          </mediaobject>
+        </screenshot>You will be redirected to a Delete Confirmation page were
+      some information of the course (number of versions and associations)
+      will be displayed and two buttons (OK, Cancel). If you OK then the
+      course will be deleted including all associations and versions.</para>
+
+      <para><screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/del1.JPG" />
+            </imageobject>
+          </mediaobject>
+        </screenshot></para>
+    </section>
+
+    <section>
+      <title>Changing between Course Versions</title>
+
+      <para>To change between course versions you can click on the Course Key
+      link on each course. You will be redirected to a page were all the
+      versions of one course are listed with some information. The "Live"
+      image indicates that this is the version that is shown in all the pages
+      of dotlrn-catalog. The "Go live" button makes another revision of the
+      list "live".</para>
+
+      <screenshot>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/rev1.JPG" />
+          </imageobject>
+        </mediaobject>
+      </screenshot>
+    </section>
+
+    <section>
+      <title>Grant/Revoke Permissions</title>
+
+      <para>One user can have two privileges on dotlrn-catalog package one at
+      package level (Admin, Create, None) and the other one at course level
+      (Admin, None). The users that holds the "Create" privilege on
+      dotlrn-catalog package can create courses, revisions, delete, associate
+      on his own courses or the courses that he has recieved "admin"
+      privilege. The user that creates once course has admin privilege on that
+      course and can grant the same privilege over that course to other users.
+      The users that does not hold any privilege at all, then can only see
+      what courses are available and can try to enroll to them.</para>
+
+      <orderedlist>
+        <listitem>
+          <para>Grant/Revoke Permissions over dotlrn-catalog package</para>
+
+          <para>Only the users that have admin privilege on dotlrn-catalog
+          package can will see the "Grant Permission link" and can grant
+          Create privilege to other users on the system. Giving Create
+          privilege to other users allows him to create, edit, delete courses
+          in dotlrn-catalog package. You will be redirected to a page were all
+          the users that have create privile over dotrln-catalo package will
+          appear. And a search form to search for users to grant/revoke
+          privileges.</para>
+
+          <screenshot>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="images/grant1.JPG" />
+              </imageobject>
+            </mediaobject>
+          </screenshot>
+
+          <screenshot>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="images/grant2.JPG" />
+              </imageobject>
+            </mediaobject>
+          </screenshot>
+        </listitem>
+
+        <listitem>
+          <para>Grant/Revoke Permissions over one course</para>
+
+          <para>You can grant your admin privilege on one course by making
+          click on the Manage permission link on the permission column on your
+          course list or by making click on the Manage Permission button on
+          one course details page. Giving the admin privilege to a users
+          allows he/she make all the things you can do with your course, you
+          can also revoke his/her permission in the same way.</para>
+
+          <screenshot>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="images/assoc4.JPG" />
+              </imageobject>
+            </mediaobject>
+          </screenshot>
+
+          <screenshot>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="images/grant3.JPG" />
+              </imageobject>
+            </mediaobject>
+          </screenshot>
+        </listitem>
+      </orderedlist>
+    </section>
+
+    <section>
+      <title>Watch Course Details (Information)</title>
+
+      <para>You can watch all the course information at the Course Description
+      page by making click on the course name:</para>
+
+      <para><screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/assoc4.JPG" />
+            </imageobject>
+          </mediaobject>
+        </screenshot></para>
+
+      <para><screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/user1.JPG" />
+            </imageobject>
+          </mediaobject>
+        </screenshot>The buttons bar will only appear if you are inside
+      dt-admin, if you come form index page then the enroll button will appear
+      if one assessment is associated to the course:</para>
+
+      <para><screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/user3.JPG" />
+            </imageobject>
+          </mediaobject>
+        </screenshot></para>
+    </section>
+
+    <section>
+      <title>Simple Users</title>
+
+      <para>Will only see the available courses and can watch information
+      about each course by making click on the course name at index page. If
+      one assessment is associated to the course then they will be able to
+      answer it and be part of one of the courses and communities also related
+      to dotlrn-catalog Course:</para>
+
+      <para><screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/user.JPG" />
+            </imageobject>
+          </mediaobject>
+        </screenshot><screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/user3.JPG" />
+            </imageobject>
+          </mediaobject>
+        </screenshot></para>
+    </section>
+  </chapter>
+
+  <chapter>
+    <title>AUTHORS</title>
+
+    <para>Viaro Networks (www.viaro.net)</para>
+
+    <para></para>
+
+    <orderedlist>
+      <listitem>
+        <para>Rocael Hernandez -- roc@viaro.net</para>
+
+        <para>Design</para>
+      </listitem>
+
+      <listitem>
+        <para>Vivian Aguilar -- vivian@viaro.net</para>
+
+        <para>Design</para>
+      </listitem>
+
+      <listitem>
+        <para>Miguel Marin -- miguelmarin@viaro.net</para>
+
+        <para>Development and Documentation</para>
+      </listitem>
+    </orderedlist>
+  </chapter>
+</book>
