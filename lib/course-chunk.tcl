@@ -49,7 +49,71 @@ if { [permission::permission_p -object_id $cc_package_id -privilege "create"] } 
 }
 
 set obj_n 0
+set dotlrn_class "("
+set dotlrn_com "("
+
 # For dotlrn associations
 db_multirow -extend { obj_n admin_p } relations relation { } {
     set obj_n 1
+    if { [string equal $type "dotlrn_catalog_class_rel" ]} {
+	append dotlrn_class "'$object_id'"
+	append dotlrn_class ","
+    } else {
+	append dotlrn_com "'$object_id'"
+	append dotlrn_com ","
+    }
 }
+append dotlrn_class "0)"
+append dotlrn_com "0)"
+
+db_multirow classes_list get_dotlrn_classes { }
+
+template::list::create \
+    -name dotlrn_classes \
+    -multirow classes_list \
+    -key object_id \
+    -row_pretty_plural "[_ dotlrn-catalog.dotlrn_classes]" \
+    -elements {
+        class  {
+            label "[_ dotlrn-catalog.class_name]"
+            display_template {
+                <a href="dotlrn-info?object_id=@classes_list.object_id@&type=class&course_id=$course_id&course_name=$name&course_key=$course_key">@classes_list.pretty_name@</a>
+            }
+        }
+        dep_name {
+            label "[_ dotlrn-catalog.dep_name]"
+            display_template {
+                @classes_list.department_name@
+            }
+        }
+        term_name  {
+            label "[_ dotlrn-catalog.term_name]"
+            display_template {
+                    @classes_list.term_name@
+            }
+        }
+        subject  {
+            label "[_ dotlrn-catalog.subject_name]"
+            display_template {
+                    @classes_list.class_name@
+            }
+        }
+    }
+
+
+db_multirow com_list get_dotlrn_communities { }
+
+
+template::list::create \
+    -name dotlrn_communities \
+    -multirow com_list \
+    -key object_id \
+    -row_pretty_plural "[_ dotlrn-catalog.dotlrn_com]" \
+    -elements {
+        community  {
+            label "[_ dotlrn-catalog.com_name]"
+            display_template {
+                <a href="dotlrn-info?object_id=@com_list.object_id@&type=community&course_id=$course_id&course_name=$name&course_key=$course_key">@com_list.pretty_name@</a>
+            }
+        }
+    }

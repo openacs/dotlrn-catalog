@@ -72,7 +72,7 @@
 <td>
    <if @edit@ eq no>
       <if @index@ eq "yes">
-	<if @asmid@ gt "-1">
+	<if @asmid@ not eq "-1">
 	    <a class="button" href="/assessment/assessment?assessment_id=@asmid@">#dotlrn-catalog.enroll#</a>
 	</if>
 	<else>
@@ -102,26 +102,21 @@
 
 <br>
 <if @revision@ not eq yes>
-<if @obj_n@ not eq "0">
-   <h3>#dotlrn-catalog.dotlrn_assoc#:</h3>
-</if>
-<else>
-   <if @admin_p@ eq 1>
-      <if @index@ not eq "yes">
-        <h3>#dotlrn-catalog.dotlrn_assoc#:</h3>
-        &nbsp;&nbsp;&nbsp;#dotlrn-catalog.no# 
-        (<a href="dotlrn-list?course_id=@course_id@&course_key=@course_key@&course_name=@name@" title="#dotlrn-catalog.associate_this#"><i>#dotlrn-catalog.associate#</i></a>)
-      </if>
-   </if>
-</else>
-
-<multiple name="relations">
-    <if @relations.type@ eq "dotlrn_catalog_class_rel">
-    	<include src="/packages/dotlrn-catalog/lib/dotlrn-chunk" class_id=@relations.object_id@>
-    </if>
-    <else>
-    	<include src="/packages/dotlrn-catalog/lib/community-chunk" community_id=@relations.object_id@>
-    </else>
-</multiple>
+  <if @obj_n@ not eq "0">
+  </if>
+  <else>
+     <if @admin_p@ eq 1>
+        <if @index@ not eq "yes">
+          <h3>#dotlrn-catalog.dotlrn_assoc#:</h3>
+          &nbsp;&nbsp;&nbsp;#dotlrn-catalog.no# 
+          (<a href="dotlrn-list?course_id=@course_id@&course_key=@course_key@&course_name=@name@" title="#dotlrn-catalog.associate_this#"><i>#dotlrn-catalog.associate#</i></a>)
+        </if>
+     </if>
+  </else>
 </if>
 
+<h2>@course_key@ (@name@) #dotlrn-catalog.dotlrn_classes#:</h2>
+<listtemplate name="dotlrn_classes"></listtemplate>
+
+<h2>@course_key@ (@name@) #dotlrn-catalog.dotlrn_com#:</h2>
+<listtemplate name="dotlrn_communities"></listtemplate>

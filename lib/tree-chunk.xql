@@ -1,26 +1,13 @@
 <?xml version="1.0"?>
 <queryset>
 
-<fullquery name="get_course_info">
+<fullquery name="get_courses">
       <querytext>
-            select dc.course_id, dc.course_key, dc.course_name
+            select dc.course_id, dc.course_key, dc.course_name, dc.assessment_id
             from dotlrn_catalog dc, cr_items ci
-            where dc.course_id = ci.live_revision and dc.course_id = :course_id
-      </querytext>
+            where dc.course_id = ci.live_revision
+            [template::list::filter_where_clauses -and -name course_list]
+        </querytext>
 </fullquery>
-
-
-<fullquery name="get_courses_uncat">
-      <querytext>
-            select dc.course_id, dc.course_key, dc.course_name
-            from dotlrn_catalog dc, cr_items ci
-            where dc.course_id = ci.live_revision and dc.course_id not in (
-		select object_id from category_object_map where category_id in (
-	 	    select category_id from categories where tree_id =:tree_id
-	    	)	
-	    )	
-      </querytext>
-</fullquery>
-
 
 </queryset>
