@@ -108,8 +108,34 @@ template::list::create \
 		</div>
 	    }
 	}
+		category {
+	    label "[_ dotlrn-catalog.category]"
+	    display_template {
+		<div align=center>
+		<if @course_list.category_name@ not eq "">
+		    @course_list.category_name@
+		</if>
+		<else>
+		   #dotlrn-catalog.uncat#
+		</else>
+		</div>
+	    }
+	}
     }
+    
+    
+db_multirow -extend { category_name } course_list get_courses { } {
+    set mapped [category::get_mapped_categories $course_id]
+    foreach element $mapped {
+	append category_name "[category::get_name $element], "
+    }
+    set category_name [string range $category_name 0 [expr [string length $category_name] - 3]]
+}
+	
 
 
-db_multirow course_list get_courses {}
+
+
+
+
 
