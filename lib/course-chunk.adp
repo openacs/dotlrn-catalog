@@ -105,6 +105,16 @@
 <if @obj_n@ not eq "0">
    <h3>#dotlrn-catalog.dotlrn_assoc#:</h3>
 </if>
+<else>
+   <if @admin_p@ eq 1>
+      <if @index@ not eq "yes">
+        <h3>#dotlrn-catalog.dotlrn_assoc#:</h3>
+        &nbsp;&nbsp;&nbsp;#dotlrn-catalog.no# 
+        (<a href="dotlrn-list?course_id=@course_id@&course_key=@course_key@&course_name=@name@" title="#dotlrn-catalog.associate_this#"><i>#dotlrn-catalog.associate#</i></a>)
+      </if>
+   </if>
+</else>
+
 <multiple name="relations">
     <if @relations.type@ eq "dotlrn_catalog_class_rel">
     	<include src="/packages/dotlrn-catalog/lib/dotlrn-chunk" class_id=@relations.object_id@>

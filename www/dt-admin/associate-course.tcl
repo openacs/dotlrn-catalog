@@ -23,6 +23,4 @@ foreach object $object_id {
 
 if { [string equal $return_url ""] } {
     ad_returnredirect "dotlrn-list?course_id=$course_id"
-} else {
-    ad_returnredirect "$return_url"
 }

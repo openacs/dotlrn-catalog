@@ -83,12 +83,9 @@ template::list::create \
 	}
 	associate {
 	    display_template {
-		<if @classes_list.rel@ eq 0>
-		<a href="associate-course?course_id=$course_id&object_id=@classes_list.object_id@&return_url=$return_url&type=@classes_list.type@" title="\#dotlrn-catalog.associate_to_class\#\">#dotlrn-catalog.associate#</a>
+		<if @classes_list.rel@ not eq 0>
+		    #dotlrn-catalog.associated#
 		</if>
-		<else>
-		#dotlrn-catalog.associated#
-                </else>
 	    }
 	}
     }
@@ -133,12 +130,9 @@ template::list::create \
 	}
 	associate {
 	    display_template {
-		<if @com_list.rel@ eq 0>
-	  	   <a href="associate-course?course_id=$course_id&object_id=@com_list.object_id@&return_url=$return_url&type=@com_list.type@" title="\#dotlrn-catalog.associate_to_class\#\">#dotlrn-catalog.associate#</a>
-		</if>
-		<else>
+		<if @com_list.rel@ not eq 0>
 		#dotlrn-catalog.associated#
-                </else>
+		</if>
 	    }
 	}
     }
