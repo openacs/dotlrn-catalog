@@ -84,7 +84,7 @@ ad_proc -private dotlrn-catalog::package_mount {
 } {
     # To categorize courses
     set tree_id [category_tree::add -name "dotlrn-course-catalog"]
-    category_tree::map -tree_id $tree_id -object_id $package_id -assign_single_p "t"
+    category_tree::map -tree_id $tree_id -object_id $package_id
 }
 
 ad_proc -private dotlrn-catalog::package_uninstall {

@@ -131,5 +131,11 @@ db_multirow -extend { asm_name rel item_id creation_user category_name } course_
     set item_id [dotlrn_catalog::get_item_id -revision_id $course_id]
     set creation_user [dotlrn_catalog::get_creation_user -object_id $item_id]
     set rel [dotlrn_catalog::has_relation -course_id $course_id]
-    set category_name "[category::get_name [category::get_mapped_categories $course_id]]"
+    set category_name ""
+    set mapped [category::get_mapped_categories $course_id]
+    foreach element $mapped {
+	append category_name "[category::get_name $element], "
+    }
+    set category_name [string range $category_name 0 [expr [string length $category_name] - 3]]
 }
+

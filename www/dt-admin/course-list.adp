@@ -20,3 +20,4 @@
 <listtemplate name=course_list></listtemplate>
 
 </center>
+
