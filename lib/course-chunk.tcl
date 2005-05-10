@@ -137,7 +137,9 @@ template::list::create \
 set reg_chunck "assessment_id=$asmid"
 
 if { ![string eq $reg_asm_id 0] } {
-    set reg_chunck "assessment_id=$reg_asm_id&next_asm=$asmid"
+    if { [ad_conn user_id] == 0} {
+	set reg_chunck "assessment_id=$reg_asm_id&next_asm=$asmid"
+    }
 } 
 
 
