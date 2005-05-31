@@ -141,5 +141,13 @@
       </querytext>
 </fullquery>
 
+<fullquery name="dotlrn_catalog::get_course_data.get_data">
+      <querytext>
+	   select course_name as name, course_key as key, course_info as description
+	   from dotlrn_catalog
+	   where course_id=:course_id
+      </querytext>
+</fullquery>
+
 
 </queryset>

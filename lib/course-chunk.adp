@@ -82,7 +82,7 @@ table.list {
    <if @edit@ eq no>
       <if @index@ eq "yes">
 	<if @asmid@ not eq "-1">
-	    <a class="button" href="/assessment/assessment?@reg_chunck@">#dotlrn-catalog.enroll#</a>
+	    <a class="button" href="/assessment/assessment?assessment_id=@asmid@">#dotlrn-catalog.enroll#</a>
 	</if>
 	<else>
 	   <br>

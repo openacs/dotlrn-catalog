@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<message_catalog package_key="dotlrn-catalog" package_version="0.1a4" locale="en_US" charset="ISO-8859-1">
+<message_catalog package_key="dotlrn-catalog" package_version="0.1a6" locale="en_US" charset="ISO-8859-1">
 
   <msg key="Actions">Actions</msg>
   <msg key="add_course_to">Add this course to one category.</msg>
@@ -33,6 +33,7 @@
   <msg key="courses">Courses</msg>
   <msg key="create">Create</msg>
   <msg key="create_new_ver">Create a new version of</msg>
+  <msg key="create_section">Add Section</msg>
   <msg key="delete">Delete</msg>
   <msg key="delete_course">Delete Course</msg>
   <msg key="delete_this">Delete This Course</msg>
@@ -46,6 +47,7 @@
   <msg key="dotlrn_list">DotLRN List</msg>
   <msg key="edit_course">New Course Version</msg>
   <msg key="email">Email:</msg>
+  <msg key="end_date">End Date:</msg>
   <msg key="enroll">Enroll</msg>
   <msg key="enroll_not">Enroll Not Available</msg>
   <msg key="grant">Grant</msg>
@@ -87,6 +89,7 @@
   <msg key="search_user_email">Search for user Email:</msg>
   <msg key="search_users_to">Search Users To Grant Permissions On</msg>
   <msg key="see_all_rev">See All Versions</msg>
+  <msg key="start_date">Start Date:</msg>
   <msg key="subject_name">Subject Name</msg>
   <msg key="term_name">Term Name</msg>
   <msg key="this_course">This course has</msg>

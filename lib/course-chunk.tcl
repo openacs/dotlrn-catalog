@@ -31,11 +31,11 @@ if { ![info exists revision] } {
 }
 
 set category_p [db_string get_category { } -default -1]
+
 set info [ad_html_text_convert -from text/enhanced -to text/plain $info]
-set reg_asm_id  [parameter::get -parameter AsmForRegisterId -package_id [ad_conn subsite_id]]
+
 set cc_package_id [apm_package_id_from_key "dotlrn-catalog"]
 set tree_id [db_string get_tree_id { } -default "-1"]
-
 
 # Get the category name
 set category_name "[category::get_name [category::get_mapped_categories $course_id]]"
@@ -132,15 +132,6 @@ template::list::create \
         }
     }
 
-#Send the registration assessment_id
-
-set reg_chunck "assessment_id=$asmid"
-
-if { ![string eq $reg_asm_id 0] } {
-    if { [ad_conn user_id] == 0} {
-	set reg_chunck "assessment_id=$reg_asm_id&next_asm=$asmid"
-    }
-} 
 
 
 

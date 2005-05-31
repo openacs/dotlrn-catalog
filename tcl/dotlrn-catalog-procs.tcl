@@ -273,3 +273,13 @@ ad_proc -private dotlrn_catalog::get_categories_widget {
     
     return $return_list
 }
+
+ad_proc -public dotlrn_catalog::get_course_data {
+    {-course_id:required}
+} {
+    Returns the course information (name,key and description) in the array course_data
+    
+} {
+    upvar course_data course_data
+    return [db_0or1row get_data {} -column_array course_data]
+}

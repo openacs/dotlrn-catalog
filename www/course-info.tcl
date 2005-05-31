@@ -12,6 +12,7 @@ set page_title "$course_key [_ dotlrn-catalog.course_info]"
 set context [list "[_ dotlrn-catalog.one_course_info]"]
 
 set return_url "index"
+dotlrn_catalog::get_course_data -course_id $course_id
 
 db_1row get_course_info { } 
 

@@ -34,7 +34,5 @@
 	    where community_id in $dotlrn_com order by pretty_name
         </querytext>
     </fullquery>
-   
-   
 
 </queryset>
