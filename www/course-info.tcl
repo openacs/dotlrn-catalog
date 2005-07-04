@@ -5,16 +5,17 @@ ad_page_contract {
     @creation-date   09-02-2005
 } {
     course_id:notnull
-    course_key:notnull
-    course_name:notnull
+
 }
+
+db_1row get_course_info { } 
 set page_title "$course_key [_ dotlrn-catalog.course_info]"
 set context [list "[_ dotlrn-catalog.one_course_info]"]
 
 set return_url "index"
 dotlrn_catalog::get_course_data -course_id $course_id
 
-db_1row get_course_info { } 
+
 
 set asm_name [db_string get_asm_name { } -default "[_ dotlrn-catalog.not_associated]"]
 set item_id [dotlrn_catalog::get_item_id -revision_id $course_id]

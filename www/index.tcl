@@ -11,7 +11,7 @@ set page_title "[_ dotlrn-catalog.course_catalog]"
 set context ""
 set return_url "dt-admin/course-list"
 
-set cc_package_id [apm_package_id_from_key "dotlrn-catalog"]
+set cc_package_id [ad_conn package_id]
 
 set user_id [ad_conn user_id]
 

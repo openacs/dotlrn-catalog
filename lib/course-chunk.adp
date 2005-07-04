@@ -6,7 +6,6 @@ table.list {
 }
 </STYLE>
 
-
 <table>
 <if @index@ eq "yes">
    <if @admin_p@ eq 1>
@@ -82,12 +81,8 @@ table.list {
    <if @edit@ eq no>
       <if @index@ eq "yes">
 	<if @asmid@ not eq "-1">
-	    <a class="button" href="/assessment/assessment?assessment_id=@asmid@">#dotlrn-catalog.enroll#</a>
+	    <a class="button" href="@ret_chunck@">#dotlrn-catalog.enroll#</a>
 	</if>
-	<else>
-	   <br>
-	   <b>#dotlrn-catalog.enroll_not#</b>
-	</else>
       </if>
       <else>
          <if @course_id@ eq @live_revision@>

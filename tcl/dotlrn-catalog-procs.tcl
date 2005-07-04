@@ -248,7 +248,7 @@ ad_proc -private dotlrn_catalog::get_categories_widget {
 } {
     set return_list ""
     set name ""
-    set cc_package_id [apm_package_id_from_key "dotlrn-catalog"]
+    set cc_package_id [ad_conn package_id]
     
     # The tree id from categories
     set tree_list [category_tree::get_mapped_trees $cc_package_id]
@@ -272,6 +272,22 @@ ad_proc -private dotlrn_catalog::get_categories_widget {
     }
     
     return $return_list
+}
+
+ad_proc -private dotlrn_catalog::get_enroll_p {
+    {-start_date:required}
+    {-end_date:required}
+} {
+    Returns 1 if sysdate is between start_date and end_date else return 0
+    @sysdate@ Date to compare
+    
+} {
+    set date [clock format [clock seconds] -format "%Y-%m-%d"]
+    if { $date >= $start_date && $date <= $end_date } {
+	return 1
+    }  else {
+	return 0
+    }
 }
 
 ad_proc -public dotlrn_catalog::get_course_data {

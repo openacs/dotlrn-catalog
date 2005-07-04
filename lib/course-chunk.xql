@@ -34,5 +34,20 @@
 	    where community_id in $dotlrn_com order by pretty_name
         </querytext>
     </fullquery>
+	
+    <fullquery name="get_course_dates">
+        <querytext>
+            select start_date,end_date from dotlrn_catalog where course_id=:course_id
+        </querytext>
+    </fullquery>
+   
+<fullquery name="package_id">
+      <querytext>
+      
+      select package_id from cr_folders where folder_id=(select context_id from acs_objects where object_id=:assessment_id)
+    
+      </querytext>
+</fullquery>
+   
 
 </queryset>
