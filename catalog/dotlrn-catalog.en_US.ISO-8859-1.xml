@@ -81,6 +81,7 @@
   <msg key="privilege_on">Privilege on</msg>
   <msg key="privilege_on_catalog">Privilege on dotLRN-Catalog:</msg>
   <msg key="professor">Professor:</msg>
+  <msg key="request_membership_link">&lt;img src=/resources/dotlrn/request.gif alt=&quot;Request Membership&quot; border=&quot;0&quot; title=&quot;Request Membership&quot;&gt;</msg>
   <msg key="rev_list">Revision List</msg>
   <msg key="revisions">Revisions</msg>
   <msg key="revoke">Revoke</msg>
