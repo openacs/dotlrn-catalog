@@ -78,13 +78,21 @@ append dotlrn_class "0)"
 append dotlrn_com "0)"
 
 db_multirow -extend { join } classes_list get_dotlrn_classes { } { 
-    
     if {![dotlrn_community::member_p $object_id [ad_conn user_id]]} {
 	if { $asmid == -1 } {
-	    set join "<a href=/dotlrn/register?community_id=$object_id&referer=$referer>#dotlrn.join_link#</a>"
+	    if {[dotlrn_community::member_pending_p -community_id $object_id -user_id [ad_conn user_id]]} {
+		set join "\[<small> \#dotlrn.Pending_Approval\# </small>\]"
+	    } elseif {![dotlrn_community::not_closed_p -community_id $object_id]} {
+		set join ""
+	    } elseif {[dotlrn_community::needs_approval_p -community_id $object_id]} {
+		set label "Request Membership"
+		set join "<a href=/dotlrn/register?community_id=$object_id&referer=$referer>\#dotlrn-catalog.request_membership_link\#</a>"	    
+	    } else {
+		set join "<a href=/dotlrn/register?community_id=$object_id&referer=$referer>#dotlrn.join_link#</a>" 
+	    }  
 	}
     } else {
-	set join "[_ dotlrn-catalog.member_p]"
+	set join "\[<small>[_ dotlrn-catalog.member_p] </small>\]"
     } 
 }
 
@@ -155,13 +163,21 @@ set elements {
 
 
 db_multirow -extend {join} com_list  get_dotlrn_communities {} { 
-    set join ""
     if {![dotlrn_community::member_p $object_id [ad_conn user_id]]} {
 	if { $asmid == -1 } {
-	    set join "<a href=/dotlrn/register?community_id=$object_id&referer=$referer>#dotlrn.join_link#</a>"
+	    if {[dotlrn_community::member_pending_p -community_id $object_id -user_id [ad_conn user_id]]} {
+		set join "\[<small> \#dotlrn.Pending_Approval\# </small>\]"
+	    } elseif {![dotlrn_community::not_closed_p -community_id $object_id]} {
+		set join ""
+	    } elseif {[dotlrn_community::needs_approval_p -community_id $object_id]} {
+		set label "Request Membership"
+		set join "<a href=/dotlrn/register?community_id=$object_id&referer=$referer>\#dotlrn-catalog.request_membership_link\#</a>"	    
+	    } else {
+		set join "<a href=/dotlrn/register?community_id=$object_id&referer=$referer>#dotlrn.join_link#</a>" 
+	    }  
 	}
     } else {
-	set join "[_ dotlrn-catalog.member_p]"
+	set join "\[<small>[_ dotlrn-catalog.member_p] </small>\]"
     } 
 }
 
