@@ -8,12 +8,12 @@
     <singleton-p>t</singleton-p>
     <auto-mount>dotlrn-catalog</auto-mount>
 
-    <version name="0.1a5" url="http://openacs.org/repository/download/apm/dotlrn-catalog-1.0d2.apm">
+    <version name="0.1a6" url="http://openacs.org/repository/download/apm/dotlrn-catalog-1.0d2.apm">
         <owner url="mailto:miguelmarin@viaro.net">Miguel Marin</owner>
         <release-date>2005-05-11</release-date>
         <vendor url="http://www.viaro.net">Viaro Networks</vendor>
 
-        <provides url="dotlrn-catalog" version="0.1a5"/>
+        <provides url="dotlrn-catalog" version="0.1a6"/>
         <requires url="acs-content-repository" version="5.1.5d3"/>
         <requires url="acs-subsite" version="5.1.4"/>
         <requires url="assessment" version="0.10d5"/>

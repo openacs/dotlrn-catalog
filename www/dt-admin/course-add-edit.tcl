@@ -78,6 +78,11 @@ foreach attribute $attribute_list {
 		set aditional_elements [list options $asm_list]
 	    }
 	}
+	boolean {
+	    if { [string equal [lindex $attribute 2] "active_p"]} {
+		set aditional_type "(checkbox)"
+	    }
+	}
 	date {
 	    if { [string equal [lindex $attribute 2] "start_date"] } {
 		set aditional_type "(text),optional"
@@ -90,7 +95,6 @@ foreach attribute $attribute_list {
 		set aditional_elements_2  {after_html  {<input type='reset' value=' ... ' onclick=\"return showCalendar('sel2', 'y-m-d');\"> \[<b>y-m-d</b>\] }}
 	    }
 	}
-	
     }
     set element [list [lindex $attribute 2]:text${aditional_type} [list label [lindex $attribute 3]] $aditional_elements $aditional_elements_2 $element_mode]
     lappend elements $element
