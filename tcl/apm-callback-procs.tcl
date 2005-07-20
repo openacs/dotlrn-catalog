@@ -76,6 +76,13 @@ ad_proc -private dotlrn-catalog::package_install {
 	-sort_order 6 \
 	-column_spec "date"
 
+    content::type::attribute::new \
+	-content_type "dotlrn_catalog" \
+	-attribute_name "active_p" \
+	-datatype "boolean" \
+	-pretty_name "\#dotlrn-catalog.active_p\#" \
+	-sort_order 7 \
+	-column_spec "boolean"
 
     # To store the courses in the content repository
     set folder_id [content::folder::new -name "DotLRN Catalog" -label "DotLRN Catalog"]
@@ -153,7 +160,17 @@ ad_proc -private dotlrn-catalog::package_upgrade {
 		    -sort_order 6 \
 		    -column_spec "date"
 
-		
+	    }
+            0.1a5 0.1a6 {
+	
+		content::type::attribute::new \
+			-content_type "dotlrn_catalog" \
+			-attribute_name "active_p" \
+			-datatype "boolean" \
+			-pretty_name "\#dotlrn-catalog.active_p\#" \
+			-sort_order 7 \
+			-column_spec "boolean"
+
 	    }
 	}
 }
