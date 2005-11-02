@@ -8,22 +8,22 @@
     <singleton-p>t</singleton-p>
     <auto-mount>dotlrn-catalog</auto-mount>
 
-    <version name="0.1a4" url="http://openacs.org/repository/download/apm/dotlrn-catalog-1.0d.apm">
+    <version name="0.1a5" url="http://openacs.org/repository/download/apm/dotlrn-catalog-1.0d2.apm">
         <owner url="mailto:miguelmarin@viaro.net">Miguel Marin</owner>
-        <release-date>2005-02-02</release-date>
+        <release-date>2005-05-11</release-date>
         <vendor url="http://www.viaro.net">Viaro Networks</vendor>
-        <maturity>0</maturity>
 
-        <provides url="dotlrn-catalog" version="0.1a4"/>
+        <provides url="dotlrn-catalog" version="0.1a5"/>
         <requires url="acs-content-repository" version="5.1.5d3"/>
         <requires url="acs-subsite" version="5.1.4"/>
         <requires url="assessment" version="0.10d5"/>
-	<requires url="categories" version="1.0d7"/>
+        <requires url="categories" version="1.0d7"/>
         <requires url="dotlrn" version="2.1.0b4"/>
 
         <callbacks>
             <callback type="after-install"  proc="dotlrn-catalog::package_install"/>
             <callback type="after-mount"  proc="dotlrn-catalog::package_mount"/>
+            <callback type="after-upgrade"  proc="dotlrn-catalog::package_upgrade"/>
             <callback type="before-uninstall"  proc="dotlrn-catalog::package_uninstall"/>
         </callbacks>
         <parameters>

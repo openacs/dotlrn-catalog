@@ -21,8 +21,8 @@ ad_proc -private dotlrn-catalog::package_install {
     # lets create the CR type tables to support the course catalog
     
     content::type::new -content_type "dotlrn_catalog" \
-	-pretty_name "DotLRN Catalog" \
-	-pretty_plural "DotLRN Catalog" \
+	-pretty_name "\#dotlrn-catalog.package_pretty_name\#" \
+	-pretty_plural "\#dotlrn-catalog.package_pretty_name\#" \
  	-table_name "dotlrn_catalog" \
 	-id_column "course_id"
 
@@ -31,8 +31,8 @@ ad_proc -private dotlrn-catalog::package_install {
 	-content_type "dotlrn_catalog" \
 	-attribute_name "course_key" \
 	-datatype "string" \
-	-pretty_name "Course Key" \
-	-pretty_plural "Course Key" \
+	-pretty_name "\#dotlrn-catalog.course_key_pretty_name\#" \
+	-pretty_plural "\#dotlrn-catalog.course_key_pretty_name\#" \
 	-sort_order 1 \
 	-column_spec "varchar(50)"
 
@@ -40,7 +40,7 @@ ad_proc -private dotlrn-catalog::package_install {
 	-content_type "dotlrn_catalog" \
 	-attribute_name "course_name" \
 	-datatype "string" \
-	-pretty_name "Course Name" \
+	-pretty_name "\#dotlrn-catalog.course_name_pretty_name\#" \
 	-sort_order 2 \
 	-column_spec "varchar(200)"
 
@@ -48,7 +48,7 @@ ad_proc -private dotlrn-catalog::package_install {
 	-content_type "dotlrn_catalog" \
 	-attribute_name "course_info" \
 	-datatype "text" \
-	-pretty_name "Course Information" \
+	-pretty_name "\#dotlrn-catalog.course_info_pretty_name\#" \
 	-sort_order 3 \
 	-column_spec "text"
 
@@ -56,9 +56,33 @@ ad_proc -private dotlrn-catalog::package_install {
 	-content_type "dotlrn_catalog" \
 	-attribute_name "assessment_id" \
 	-datatype "integer" \
-	-pretty_name "Assessment ID" \
+	-pretty_name "\#dotlrn-catalog.asm_id_pretty_name\#" \
 	-sort_order 4 \
 	-column_spec "integer"
+
+    content::type::attribute::new \
+	-content_type "dotlrn_catalog" \
+	-attribute_name "start_date" \
+	-datatype "date" \
+	-pretty_name "\#dotlrn-catalog.start_date_pretty_name\#" \
+	-sort_order 5 \
+	-column_spec "date"
+
+    content::type::attribute::new \
+	-content_type "dotlrn_catalog" \
+	-attribute_name "end_date" \
+	-datatype "date" \
+	-pretty_name "\#dotlrn-catalog.end_date_pretty_name\#" \
+	-sort_order 6 \
+	-column_spec "date"
+
+    content::type::attribute::new \
+	-content_type "dotlrn_catalog" \
+	-attribute_name "active_p" \
+	-datatype "boolean" \
+	-pretty_name "\#dotlrn-catalog.active_p\#" \
+	-sort_order 7 \
+	-column_spec "boolean"
 
     # To store the courses in the content repository
     set folder_id [content::folder::new -name "DotLRN Catalog" -label "DotLRN Catalog"]
@@ -102,4 +126,51 @@ ad_proc -private dotlrn-catalog::package_uninstall {
     content::folder::unregister_content_type -folder_id $folder_id -content_type "dotlrn_catalog"
     content::folder::delete -folder_id $folder_id -cascade_p "t"
     content::type::delete -content_type "dotlrn_catalog" 
+}
+
+ad_proc -private dotlrn-catalog::package_upgrade {
+    {-from_version_name:required}
+    {-to_version_name:required}
+    
+} {
+    Upgrade procs
+    
+    @author Anny Flores (annyflores@viaro.net) Viaro Networks (www.viaro.net)
+    @creation-date 2005-05-11
+} {
+    apm_upgrade_logic \
+        -from_version_name $from_version_name \
+        -to_version_name $to_version_name \
+        -spec {
+            0.1a4 0.1a5 {
+		content::type::attribute::new \
+		    -content_type "dotlrn_catalog" \
+		    -attribute_name "start_date" \
+		    -datatype "date" \
+		    -pretty_name "Start Date" \
+		    -sort_order 5 \
+		    -column_spec "date"
+		
+		
+		content::type::attribute::new \
+		    -content_type "dotlrn_catalog" \
+		    -attribute_name "end_date" \
+		    -datatype "date" \
+		    -pretty_name "End Date" \
+		    -sort_order 6 \
+		    -column_spec "date"
+
+	    }
+            0.1a5 0.1a6 {
+	
+		content::type::attribute::new \
+			-content_type "dotlrn_catalog" \
+			-attribute_name "active_p" \
+			-datatype "boolean" \
+			-pretty_name "\#dotlrn-catalog.active_p\#" \
+			-sort_order 7 \
+			-column_spec "boolean"
+
+	    }
+	}
 }

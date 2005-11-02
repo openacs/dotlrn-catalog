@@ -6,17 +6,18 @@ ad_page_contract {
     @creation date   29-01-2005
 } {
     p_user_id:multiple
-    { user_name "" }
-    { user_email "" }
+    {keyword ""}
 }
-
-# dotlrn_catalog package_id
-set cc_package_id [apm_package_id_from_key "dotlrn-catalog"]
 
 # Grants Permission for all the users in p_user_id
 foreach user $p_user_id {
-    permission::revoke -party_id $user -object_id $cc_package_id  -privilege "create"
+    set courses [db_list_of_lists user_courses {}]
+    
+    foreach course $courses {
+	permission::revoke -party_id $user -object_id $course  -privilege "admin"
+    }
+    permission::revoke -party_id $user -object_id [ad_conn package_id]  -privilege "create"
 }
 
 
-ad_returnredirect "grant-list?user_name=$user_name&user_email=$user_email"
+ad_returnredirect "grant-list?keyword=$keyword"

@@ -6,8 +6,7 @@ ad_page_contract {
     @creation date   03-01-2005
 } {
     p_user_id:multiple
-    { user_name "" }
-    { user_email "" }
+    { keyword "" }
     object_id:notnull
     creation_user:notnull
     course_key:notnull
@@ -20,4 +19,4 @@ foreach user $p_user_id {
 }
 
 
-ad_returnredirect "grant-user-list?user_name=$user_name&user_email=$user_email&object_id=$object_id&creation_user=$creation_user&course_key=$course_key"
+ad_returnredirect "grant-user-list?keyword=$keyword&object_id=$object_id&creation_user=$creation_user&course_key=$course_key"

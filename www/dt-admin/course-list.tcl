@@ -14,7 +14,7 @@ set user_id [ad_conn user_id]
 set context [list "[_ dotlrn-catalog.course_list]"]
 set page_title "[_ dotlrn-catalog.course_list]"
 
-set cc_package_id [apm_package_id_from_key "dotlrn-catalog"]
+set cc_package_id [ad_conn package_id]
 
 
 permission::require_permission -party_id $user_id -object_id $cc_package_id -privilege "create"

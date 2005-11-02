@@ -3,7 +3,7 @@
 
 <fullquery name="get_course_info">      
       <querytext>
-            select dc.course_info, dc.assessment_id, cr.item_id
+            select dc.course_info, dc.course_name, dc.course_key, dc.assessment_id, cr.item_id
 	    from dotlrn_catalog dc, cr_revisions cr
  	    where cr.revision_id = :course_id and dc.course_id = :course_id
       </querytext>

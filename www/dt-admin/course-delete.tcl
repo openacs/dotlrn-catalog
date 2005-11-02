@@ -14,7 +14,7 @@ set context [list [list course-list "[_ dotlrn-catalog.course_list]"] "[_ dotlrn
 
 # Check for create permissions over dotlrn-catalog
 set user_id [ad_conn user_id]
-set cc_package_id [apm_package_id_from_key "dotlrn-catalog"]
+set cc_package_id [ad_conn package_id]
 permission::require_permission -party_id $user_id -object_id $cc_package_id -privilege "create"
 
 

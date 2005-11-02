@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<message_catalog package_key="dotlrn-catalog" package_version="0.1a4" locale="en_US" charset="ISO-8859-1">
+<message_catalog package_key="dotlrn-catalog" package_version="0.1a6" locale="en_US" charset="ISO-8859-1">
 
   <msg key="Actions">Actions</msg>
+  <msg key="active_p">Active</msg>
   <msg key="add_course_to">Add this course to one category.</msg>
   <msg key="admin">Admin</msg>
   <msg key="admin_categories">Manage Category Tree</msg>
@@ -9,6 +10,7 @@
   <msg key="and_has">and has</msg>
   <msg key="and_has_one">And has one association to dotLRN class or community.</msg>
   <msg key="asm">Assessment</msg>
+  <msg key="asm_id_pretty_name">Assessment ID</msg>
   <msg key="associate">Associate</msg>
   <msg key="associate_this">Associate this course</msg>
   <msg key="associate_to_class">Associate to this class</msg>
@@ -27,9 +29,12 @@
   <msg key="course_catalog">DotLRN Catalog Index</msg>
   <msg key="course_details">Course Details</msg>
   <msg key="course_info">Description:</msg>
+  <msg key="course_info_pretty_name">Course Information</msg>
   <msg key="course_key">Course Key:</msg>
+  <msg key="course_key_pretty_name">Course Key</msg>
   <msg key="course_list">Your Course List</msg>
   <msg key="course_name">Course Name:</msg>
+  <msg key="course_name_pretty_name">Course Name</msg>
   <msg key="courses">Courses</msg>
   <msg key="create">Create</msg>
   <msg key="create_new_ver">Create a new version of</msg>
@@ -46,6 +51,7 @@
   <msg key="dotlrn_list">DotLRN List</msg>
   <msg key="edit_course">New Course Version</msg>
   <msg key="email">Email:</msg>
+  <msg key="end_date_pretty_name">End Date</msg>
   <msg key="enroll">Enroll</msg>
   <msg key="enroll_not">Enroll Not Available</msg>
   <msg key="grant">Grant</msg>
@@ -61,6 +67,7 @@
   <msg key="label_title">Check/uncheck all rows</msg>
   <msg key="make_live">Make This Course Live</msg>
   <msg key="manage_per">Manage Permissions</msg>
+  <msg key="member_p">Already a member</msg>
   <msg key="name_already">&lt;b&gt;The course key is already taken&lt;/b&gt;</msg>
   <msg key="new_course">New Course</msg>
   <msg key="new_ver">New Course Version</msg>
@@ -69,11 +76,13 @@
   <msg key="not_associate">Not Associate</msg>
   <msg key="not_associated">Not Associated</msg>
   <msg key="one_course_info">One Course Information</msg>
+  <msg key="package_pretty_name">DotLRN Catalog</msg>
   <msg key="permission">Permission</msg>
   <msg key="please_type">Please type a keyword</msg>
   <msg key="privilege_on">Privilege on</msg>
   <msg key="privilege_on_catalog">Privilege on dotLRN-Catalog:</msg>
   <msg key="professor">Professor:</msg>
+  <msg key="request_membership_link">&lt;img src=/resources/dotlrn/request.gif alt=&quot;Request Membership&quot; border=&quot;0&quot; title=&quot;Request Membership&quot;&gt;</msg>
   <msg key="rev_list">Revision List</msg>
   <msg key="revisions">Revisions</msg>
   <msg key="revoke">Revoke</msg>
@@ -87,6 +96,7 @@
   <msg key="search_user_email">Search for user Email:</msg>
   <msg key="search_users_to">Search Users To Grant Permissions On</msg>
   <msg key="see_all_rev">See All Versions</msg>
+  <msg key="start_date_pretty_name">Start Date</msg>
   <msg key="subject_name">Subject Name</msg>
   <msg key="term_name">Term Name</msg>
   <msg key="this_course">This course has</msg>

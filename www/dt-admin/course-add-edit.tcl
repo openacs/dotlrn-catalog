@@ -22,7 +22,7 @@ set page_title ""
 set context ""
 
 set user_id [ad_conn user_id]
-set cc_package_id [apm_package_id_from_key "dotlrn-catalog"]
+set cc_package_id [ad_conn package_id]
 
 
 # Check for create permissions over dotlrn-catalog package
@@ -48,12 +48,14 @@ db_foreach assessment { } {
 # Get a list of all the attributes asociated to dotlrn_catalog
 set attribute_list [package_object_attribute_list -start_with dotlrn_catalog dotlrn_catalog]
 set elements ""
-
+set i 0
 
 # Creates the elements to show with ad_form
 foreach attribute $attribute_list {
+
     set element_mode ""
     set aditional_type ""
+    set aditional_elements_2 ""
     set aditional_elements ""
     switch [lindex $attribute 4] {
 	string {
@@ -76,8 +78,25 @@ foreach attribute $attribute_list {
 		set aditional_elements [list options $asm_list]
 	    }
 	}
+	boolean {
+	    if { [string equal [lindex $attribute 2] "active_p"]} {
+		set aditional_type "(checkbox)"
+	    }
+	}
+	date {
+	    if { [string equal [lindex $attribute 2] "start_date"] } {
+		set aditional_type "(text),optional"
+		set aditional_elements {html { id sel1}} 
+		set aditional_elements_2  {after_html  {<input type='reset' value=' ... ' onclick=\"return showCalendar('sel1', 'y-m-d');\"> \[<b>y-m-d</b>\] }}
+	    }
+	    if { [string equal [lindex $attribute 2] "end_date"] } {
+		set aditional_type "(text),optional"
+		set aditional_elements {html { id sel2}} 
+		set aditional_elements_2  {after_html  {<input type='reset' value=' ... ' onclick=\"return showCalendar('sel2', 'y-m-d');\"> \[<b>y-m-d</b>\] }}
+	    }
+	}
     }
-    set element [list [lindex $attribute 2]:text${aditional_type} [list label [lindex $attribute 3]] $aditional_elements $element_mode]
+    set element [list [lindex $attribute 2]:text${aditional_type} [list label [lindex $attribute 3]] $aditional_elements $aditional_elements_2 $element_mode]
     lappend elements $element
 }
 
@@ -100,15 +119,17 @@ ad_form -extend -name add_course -form {
 }
 
 ad_form -extend -name add_course -new_data {
+    
     # New item and revision in the CR
     set folder_id [dotlrn_catalog::get_folder_id]
     set attribute_list [package_object_attribute_list -start_with dotlrn_catalog dotlrn_catalog]
     set form_attributes [list]
-
+    
     foreach attribute $attribute_list {
 	set attr_name [lindex $attribute 2]
 	lappend form_attributes [list $attr_name [set $attr_name]]
     }
+    
     if { [dotlrn_catalog::check_name -name $course_key] } {
 	set item_id [content::item::new -name $course_key -parent_id $folder_id \
 			 -content_type "dotlrn_catalog" -creation_user $user_id \
@@ -134,15 +155,15 @@ ad_form -extend -name add_course -new_data {
 	set attr_name [lindex $attribute 2]
 	lappend form_attributes [list $attr_name [set $attr_name]]
     }
-
+    
     set course_id [content::revision::new -item_id $item_id -attributes $form_attributes -content_type "dotlrn_catalog"]
-
+    
     # Set the new revision live  
     dotlrn_catalog::set_live -revision_id $course_id
     if { ![string equal $category_ids "-1"] } {
 	category::map_object -object_id $course_id $category_ids
     }
-
+    
     if { [string equal $return_url "course-list"] } {
         set return_url "$return_url"
     } else {
@@ -152,7 +173,7 @@ ad_form -extend -name add_course -new_data {
 } -new_request {
     set context [list [list course-list "[_ dotlrn-catalog.course_list]"] "[_ dotlrn-catalog.new_course]"]
     set page_title "[_ dotlrn-catalog.new_course]"
-
+    
 } -edit_request {
     set context [list [list course-list "[_ dotlrn-catalog.course_list]"] "[_ dotlrn-catalog.edit_course]"]
     set page_title "[_ dotlrn-catalog.edit_course]"
