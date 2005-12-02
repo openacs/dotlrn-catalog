@@ -19,6 +19,7 @@
         <requires url="assessment" version="0.10d5"/>
         <requires url="categories" version="1.0d7"/>
         <requires url="dotlrn" version="2.1.0b4"/>
+        <requires url="acs-translations" version="0.1d1"/>
 
         <callbacks>
             <callback type="after-install"  proc="dotlrn-catalog::package_install"/>
