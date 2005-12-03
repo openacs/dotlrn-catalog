@@ -53,6 +53,8 @@ set i 0
 # Creates the elements to show with ad_form
 foreach attribute $attribute_list {
 
+ns_log Notice "Huh? attribute: $attribute"
+
     set element_mode ""
     set aditional_type ""
     set aditional_elements_2 ""
@@ -79,9 +81,15 @@ foreach attribute $attribute_list {
 	    }
 	}
 	boolean {
-	    if { [string equal [lindex $attribute 2] "active_p"]} {
-		set aditional_type "(checkbox)"
-	    }
+        # DRB: this is broken.  You can't have a checkbox without an options list.
+        #
+        # If Solution Grove folks want a nice boolean checkbox they need to
+        # 1. Make it work by provide the option list
+        # 2. Do it for ALL boolean attributes, not just active_p
+        #
+	#    if { [string equal [lindex $attribute 2] "active_p"]} {
+	#	set aditional_type "(checkbox)"
+	#    }
 	}
 	date {
 	    if { [string equal [lindex $attribute 2] "start_date"] } {
@@ -97,6 +105,7 @@ foreach attribute $attribute_list {
 	}
     }
     set element [list [lindex $attribute 2]:text${aditional_type} [list label [lindex $attribute 3]] $aditional_elements $aditional_elements_2 $element_mode]
+ns_log Notice "Huh? element: $element"
     lappend elements $element
 }
 
