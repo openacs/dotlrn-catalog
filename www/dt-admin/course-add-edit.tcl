@@ -53,7 +53,6 @@ set i 0
 # Creates the elements to show with ad_form
 foreach attribute $attribute_list {
 
-ns_log Notice "Huh? attribute: $attribute"
 
     set element_mode ""
     set aditional_type ""
@@ -105,7 +104,6 @@ ns_log Notice "Huh? attribute: $attribute"
 	}
     }
     set element [list [lindex $attribute 2]:text${aditional_type} [list label [lindex $attribute 3]] $aditional_elements $aditional_elements_2 $element_mode]
-ns_log Notice "Huh? element: $element"
     lappend elements $element
 }
 
