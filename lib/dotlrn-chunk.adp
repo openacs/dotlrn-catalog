@@ -20,7 +20,7 @@
 	       <if @users.rel_type@ eq "dotlrn_instructor_rel">
 	        <li>
 	          <%= [acs_community_member_link -user_id $users(user_id) -label "$users(first_names) $users(last_name)"] %>
-	 	  <if @email_p@ eq 1>
+	 	  <if @email_p;literal@ true>
 	            (<%= [email_image::get_user_email -user_id $users(user_id)] %>)
 		  </if>
                   <else>
@@ -40,7 +40,7 @@
 	      <if @users.rel_type@ eq "dotlrn_ta_rel">
 		<li>
 	        <%= [acs_community_member_link -user_id $users(user_id) -label "$users(first_names) $users(last_name)"] %>
- 	  	<if @email_p@ eq 1>
+ 	  	<if @email_p;literal@ true>
 	          (<%= [email_image::get_user_email -user_id $users(user_id)] %>)
 		</if>
                 <else>
@@ -61,7 +61,7 @@
 	       <if @users.rel_type@ eq "dotlrn_ca_rel">
 	         <li>
 	         <%= [acs_community_member_link -user_id $users(user_id) -label "$users(first_names) $users(last_name)"] %>
-	         <if @email_p@ eq 1>
+	         <if @email_p;literal@ true>
 	           (<%= [email_image::get_user_email -user_id $users(user_id)] %>) 
 		 </if>
                  <else>

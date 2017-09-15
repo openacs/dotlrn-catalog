@@ -8,7 +8,7 @@ table.list {
 
 <table>
 <if @index@ eq "yes">
-   <if @admin_p@ eq 1>
+   <if @admin_p;literal@ true>
    <div align="left">
         <a href="dt-admin/course-info?course_id=@course_id@&course_name=@name@&course_key=@course_key@&index=yes" title="#dotlrn-catalog.admin_this#"><img border=0 src=images/admin.gif></a> 
    </div>
@@ -66,7 +66,7 @@ table.list {
         <td><b>#dotlrn-catalog.asm#:</b></td><td>@asm@</td>
     </tr>
 </if>
-<if @category_p@ eq "1">
+<if @category_p;literal@ true>
     <if @index@ not eq "yes">
         <tr><td></td>
 	   <td>
@@ -109,7 +109,7 @@ table.list {
   <if @obj_n@ not eq "0">
   </if>
   <else>
-     <if @admin_p@ eq 1>
+     <if @admin_p;literal@ true>
         <if @index@ not eq "yes">
           <h3>#dotlrn-catalog.dotlrn_assoc#:</h3>
           &nbsp;&nbsp;&nbsp;#dotlrn-catalog.no# 

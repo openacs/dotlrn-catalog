@@ -10,7 +10,7 @@ td.list-filter-pane-big {
 }
 </STYLE>
 
-<if @create_p@ eq 1>
+<if @create_p;literal@ true>
     <div align="right"><a href="dt-admin/course-list"><img border=0 src=images/admin.gif></a></div>
 </if>
 
