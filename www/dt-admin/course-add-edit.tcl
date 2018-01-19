@@ -182,6 +182,7 @@ ad_form -extend -name add_course -new_data {
     set category_ids [category::get_mapped_categories $course_id]
 } -after_submit {
     ad_returnredirect "$return_url"
+    ad_script_abort
 }
 
 

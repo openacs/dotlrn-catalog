@@ -30,4 +30,5 @@ ad_form -name delete_course -export {course_key $course_key creation_user $creat
     dotlrn_catalog::course_delete -item_id $object_id
 } -after_submit {
     ad_returnredirect "course-list"
+    ad_script_abort
 }

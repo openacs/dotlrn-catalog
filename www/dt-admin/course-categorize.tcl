@@ -31,4 +31,5 @@ ad_form -export { name } -name course_categorize -cancel_url "course-list" -form
     category::map_object -remove_old -object_id $course_id $category_ids
 } -after_submit {
     ad_returnredirect "course-list"
+    ad_script_abort
 }
