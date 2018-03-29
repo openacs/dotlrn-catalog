@@ -252,8 +252,8 @@ ad_proc -private dotlrn_catalog::get_categories_widget {
     
     # The tree id from categories
     set tree_list [category_tree::get_mapped_trees $cc_package_id]
-    if { [string equal [lindex [lindex $tree_list 0] 1] "dotlrn-course-catalog"] } {
-	set tree_id [lindex [lindex $tree_list 0] 0]
+    if { [string equal [lindex $tree_list 0 1] "dotlrn-course-catalog"] } {
+	set tree_id [lindex $tree_list 0 0]
     } else {
 	set tree_id ""
     }

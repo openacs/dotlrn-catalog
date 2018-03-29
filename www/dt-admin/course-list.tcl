@@ -27,14 +27,14 @@ if {[permission::permission_p -party_id $user_id -object_id $cc_package_id -priv
 
 # The tree id from categories
 set tree_list [category_tree::get_mapped_trees $cc_package_id]
-if { [string equal [lindex [lindex $tree_list 0] 1] "dotlrn-course-catalog"] } {
-    set tree_id [lindex [lindex $tree_list 0] 0]
+if { [string equal [lindex $tree_list 0 1] "dotlrn-course-catalog"] } {
+    set tree_id [lindex $tree_list 0 0]
 } else {
     set tree_id ""
 }
 
 if { [acs_user::site_wide_admin_p] } {
-    if { [info exist keyword] } {
+    if { [info exists keyword] } {
 	set query get_course_info_site_wide_keyword
 	set paginator_query site_wide_paginator_keyword
     } else {
@@ -42,7 +42,7 @@ if { [acs_user::site_wide_admin_p] } {
 	set paginator_query site_wide_paginator
     }
 } else {
-    if { [info exist keyword] } {
+    if { [info exists keyword] } {
 	set query get_course_info_keyword
 	set paginator_query site_wide_paginator_keyword
     } else {

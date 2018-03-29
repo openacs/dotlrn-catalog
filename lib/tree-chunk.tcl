@@ -10,7 +10,7 @@ ad_page_contract {
     { level "" }
 }
 
-if { [info exist category_f] } {
+if { [info exists category_f] } {
     set var_list [split $category_f "&"]
     set category_v [lindex $var_list 0]
     set level [lindex [split [lindex $var_list 1] "="] 1]
