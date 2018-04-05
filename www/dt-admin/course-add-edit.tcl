@@ -45,7 +45,7 @@ db_foreach assessment { } {
     }
 }
 
-# Get a list of all the attributes asociated to dotlrn_catalog
+# Get a list of all the attributes associated to dotlrn_catalog
 set attribute_list [package_object_attribute_list -start_with dotlrn_catalog dotlrn_catalog]
 set elements ""
 set i 0
