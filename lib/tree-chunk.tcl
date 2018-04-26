@@ -24,7 +24,7 @@ set tree_list [category_tree::get_tree -all $tree_id]
 set tree_length [llength $tree_list]
 
 # Create a list of values for the list filter
-set tree [list]
+set tree {}
 
 foreach element $tree_list {
     set ident [lindex $element 3]
