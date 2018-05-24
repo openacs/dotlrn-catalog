@@ -157,7 +157,7 @@ ad_proc -private dotlrn_catalog::delete_relation {
     -rel_id:required
 } {
     Deletes the relation of dotlrn_catalog and dotrln class or community
-    @rel_id The id of the realtion
+    @rel_id The id of the relation
 } {
     db_exec_plsql remove_relation { }
 }
