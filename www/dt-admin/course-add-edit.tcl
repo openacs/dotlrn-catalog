@@ -85,14 +85,10 @@ foreach attribute $attribute_list {
 	}
 	date {
 	    if { [string equal [lindex $attribute 2] "start_date"] } {
-		set aditional_type "(text),optional"
-		set aditional_elements {html { id sel1}} 
-		set aditional_elements_2  {after_html  {<input type='reset' value=' ... ' onclick=\"return showCalendar('sel1', 'y-m-d');\"> \[<b>y-m-d</b>\] }}
+		set aditional_type "(h5date),optional"
 	    }
 	    if { [string equal [lindex $attribute 2] "end_date"] } {
-		set aditional_type "(text),optional"
-		set aditional_elements {html { id sel2}} 
-		set aditional_elements_2  {after_html  {<input type='reset' value=' ... ' onclick=\"return showCalendar('sel2', 'y-m-d');\"> \[<b>y-m-d</b>\] }}
+		set aditional_type "(h5date),optional"
 	    }
 	}
     }
